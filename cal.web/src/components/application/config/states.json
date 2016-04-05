@@ -1,0 +1,32 @@
+[
+  {
+    "name": "app",
+    "url": "/",
+    "type": "load",
+    "src": "components/application/index"
+  },
+  {
+    "name": "app.index",
+    "url": "index",
+    "type": "load",
+    "src": "components/index-state/index"
+  },
+  {
+    "name": "app.login",
+    "url": "login",
+    "type": "load",
+    "src": "components/login-state/index"
+  },
+  {
+    "name": "app.calcreate",
+    "url": "calcreate",
+    "type": "load",
+    "src": "components/calcreate-state/index"
+  },
+  {
+    "name": "app.calselect",
+    "url": "calselect",
+    "type": "load",
+    "src": "components/calselect-state/index"
+  }
+]

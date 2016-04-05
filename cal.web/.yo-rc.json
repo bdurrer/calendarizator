@@ -1,0 +1,14 @@
+{
+  "generator-angular-lazy": {
+    "appName": "cal.web",
+    "i18n": true,
+    "bootstrapCss": true,
+    "bootstrapJs": true,
+    "indexRouteName": "index",
+    "locales": [
+      "de"
+    ],
+    "defaultLocale": "de",
+    "root": null
+  }
+}
