@@ -21,7 +21,7 @@ System.config({
     "angular-lazy": "github:matoilic/angular-lazy@0.2.2",
     "angular-mocks": "github:angular/bower-angular-mocks@1.5.3",
     "angular-translate": "github:angular-translate/bower-angular-translate@2.11.0",
-    "angular-ui-bootstrap": "npm:angular-ui-bootstrap@1.3.0",
+    "angular-ui-bootstrap": "npm:angular-ui-bootstrap@1.3.1",
     "angular-ui-router": "github:angular-ui/ui-router@0.2.18",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",

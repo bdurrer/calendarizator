@@ -22,7 +22,9 @@ class CalendarService {
 
     saveAppointments(calList) {
         return this._http
-        .get(`/api/v1/Calendar/`)
+        .post(`/api/v1/Calendar/`, {
+			cal: calList
+		})
         .then((response) => response.data);
     }
 

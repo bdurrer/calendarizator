@@ -7,18 +7,20 @@ import ocLazyLoad from 'oclazyload';
 import ngLazy from 'angular-lazy';
 import 'angular-translate';
 import translationsModule from './i18n/translations';
-import defaultLocaleConfig from './config/default-locale';
-import routingConfig from './config/routing';
-import errorHandlingConfig from './config/error-handling';
-import googleApiConfig from './config/google-api';
-import constants from './config/constants.json!';
-import ApplicationController from './application-controller';
-import applicationRoute from './application-route';
+
 import 'marceljuenemann/angular-drag-and-drop-lists';
 import 'angular-google-gapi';
 import 'moment/moment';
 import momentFilter from './moment-filter';
 
+import defaultLocaleConfig from './config/default-locale';
+import routingConfig from './config/routing';
+import errorHandlingConfig from './config/error-handling';
+import googleApiConfig from './config/google-api';
+
+import constants from './config/constants.json!';
+import ApplicationController from './application-controller';
+import applicationRoute from './application-route';
 
 import CalendarService from './calendar-service';
 

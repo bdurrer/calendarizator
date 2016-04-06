@@ -1,7 +1,6 @@
 function de($translateProvider) {
+	$translateProvider.useSanitizeValueStrategy('escape');
     $translateProvider.translations('de', {
-        foo: 'bar',
-		
 		trashAlt: 'Zum Löschen den Eintrag auf dem Mülleimer loslassen'
     });
 }
