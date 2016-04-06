@@ -47,7 +47,13 @@ class CalcreateStateController {
 				style: { 'background-color': '#fcf8e3' },
 				from: '23:45', 
 				to: '7:45'
-			}
+			},
+			{	label: 'Frei', 
+				id: 400, 
+				style: { 'background-color': '#fff' },
+				from: '', 
+				to: ''
+			},
         ];
 		
 		this.selectedItem = null;
