@@ -1,1 +1,23 @@
-<div class="login-state">login-state</div>
+﻿<div class="login-state">
+	
+	<div class="page-header">
+		<h1>{{'page.login' | translate}}</h1>
+	</div>	
+	
+    <div class="row">
+		<div class="col-xs-8 col-xs-offset-2">
+			<p>
+                Diese Anwendung erstellt automatisch Termine in deinem Google-Kalender. Daher benötigt Sie Zugriff darauf.
+                Bitte bestätige in dem sich öffnenden Popup den Zugriff. 
+            </p>
+            <p>Falls kein Popup kommt, hat dein Popup-Blocker dies vermutlich verhindert.</p>
+		</div>
+	</div>
+
+	<div class="row" style="margin-top: 50px">
+		<div class="col-xs-8 col-xs-offset-2">
+			<button type="button" class="btn btn-primary btn-lg" ng-click="application.login()">Login</button>
+		</div>
+	</div>
+
+</div>

@@ -1,6 +1,7 @@
 import './stylesheets/application.css!';
 import 'babel/external-helpers';
 import angular from 'angular';
+import 'angular-cookies';
 import 'angular-ui-router';
 import 'ui-router-extras';
 import ocLazyLoad from 'oclazyload';
@@ -25,27 +26,28 @@ import applicationRoute from './application-route';
 import CalendarService from './calendar-service';
 
 const dependencies = [
+    'ngCookies',
     'ui.router',
     ocLazyLoad,
     'ct.ui.router.extras',
     'ct.ui.router.extras.future',
     ngLazy.name,
     'pascalprecht.translate',
-	'angular-google-gapi',
-	'dndLists',
+    'angular-google-gapi',
+    'dndLists',
     translationsModule.name
 ];
 
 const app = angular
     .module('application-component', dependencies)
     .controller('ApplicationController', ApplicationController)
-	.service('calendarService', CalendarService)
-	.filter('moment', momentFilter)
+    .service('calendarService', CalendarService)
+    .filter('moment', momentFilter)
     .config(routingConfig)
     .config(applicationRoute)
     .config(defaultLocaleConfig)
     .run(errorHandlingConfig)
-	.run(googleApiConfig);
+    .run(googleApiConfig);
 
 Object.keys(constants).forEach((constantName) => {
     app.constant(constantName, constants[constantName]);

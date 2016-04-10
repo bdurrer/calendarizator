@@ -1,6 +1,6 @@
 function de($translateProvider) {
     $translateProvider.translations('de', {
-        foo: 'bar'
+        title: 'Login'
     });
 }
 

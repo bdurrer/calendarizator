@@ -1,1 +1,74 @@
-<div class="calselect-state">calselect-state</div>
+<div class="calselect-state">
+	
+	<div class="page-header">
+		<h1>{{'calendarsExisting' | translate}}</h1>
+	</div>	
+
+
+    <div class="row" style="margin-bottom: 100px;">
+    	<div class="col-xs-12">
+    		<div class="table-responsive">
+	    		<table class="table table-striped calendarTable">
+	    			<thead>
+	    				<th></th>
+	    				<th>Name</th>
+	    				<th>Rolle</th>
+	    				<th>Beschreibung</th>
+	    				<th class="hidden-xs hidden-sm">Zeitzone</th>
+	    			</thead>
+	    			<tbody>
+	    				<tr ng-repeat="item in calselectState.list track by item.id" ng-click="calselectState.selectItem(item)" ng-class="{primary : item.primary}">
+	    					<td><input type="radio" name="selectItem" ng-value="item" ng-model="calselectState.selectedItem"></td>
+	    					<td>{{item.summary}}</td>
+	    					<td>{{'calRole.' + item.accessRole | translate}}</td>
+	    					<td><span ng-show="item.primary">{{'calPrimary' | translate}}</span> <span class="hidden-xs">{{item.description}}</span></td>
+	    					<td class="hidden-xs">{{item.timeZone}}</td>
+	    				</tr>
+	    			</tbody>
+				</table>
+			</div>
+	     </div>
+	     <div class="col-xs-8">
+	        <button type="button" class="btn btn-secondary" ng-click="calselectState.loadCalendars()">{{'buttonReloadList' | translate}}</button>
+	        <button type="button" class="btn btn-primary" ng-click="calselectState.acceptSelection()" ng-disabled="!calselectState.selectedItem">{{'buttonSelectCal' | translate}}</button>
+        </div>
+	</div>
+	
+	<form class="form-horizontal" ng-submit="calselectState.createCalendar()">
+		<div class="form-group">
+	    	<div class="col-sm-8 col-xs-12">
+	    		<h3>{{'calendarsCreate.title' | translate}}</h3>
+	    		<p>{{'calendarsCreateExplanation' | translate}}</p>
+	    	</div>
+	    </div>
+	    <div class="form-group">
+    		<label class="col-sm-3 col-xs-12" for="calselect-summary">{{'calendarsCreate.summary' | translate}}*:</label>
+    		<input class="col-sm-5 col-xs-12" id="calselect-summary" name="summary" required type="text" ng-model="calselectState.newCalParams.summary" placeholder="{{'calendarsCreate.summaryPlaceholder' | translate}}">
+	    </div>
+	    <div class="form-group">
+    		<label class="col-sm-3 col-xs-12" for="calselect-tz">{{'calendarsCreate.tz' | translate}}:</label>
+    		<input class="col-sm-5 col-xs-12" id="calselect-tz" name="tz type="text" ng-model="calselectState.newCalParams.timeZone" placeholder="Europe/Zurich">
+	    </div>
+	    <div class="form-group">
+    		<label class="col-sm-3 col-xs-12" for="calselect-loc">{{'calendarsCreate.location' | translate}}:</label>
+    		<input class="col-sm-5 col-xs-12" id="calselect-loc" name="loc" type="text" ng-model="calselectState.newCalParams.location" placeholder="{{'calendarsCreate.locationPlaceholder' | translate}}">
+	    </div>
+	    <div class="form-group">
+    		<label class="col-sm-3 col-xs-12" for="calselect-description">{{'calendarsCreate.description' | translate}}:</label>
+    		<input class="col-sm-5 col-xs-12" id="calselect-description" name="description" type="text" ng-model="calselectState.newCalParams.description">
+	    </div>
+	    
+	    <div class="form-group">
+	    	<div class="col-xs-12">
+	    		<button type="submit" class="btn btn-primary" ng-disabled="calselectState.isLoading">{{'buttonCreate' | translate}}</button>
+	    	</div>
+	    </div>
+    </form>
+
+	<div class="row" style="margin-top: 50px">
+		<div class="col-xs-8 col-xs-offset-2">
+			
+		</div>
+	</div>
+
+</div>

@@ -5,7 +5,38 @@ TODO: By default the whole bootstrap framework is imported. But you also have th
 @import "bootstrap";
 @import "dnd";
 
+html,body{
+	min-height: 100%;
+	padding: 0;
+	margin: 0;
+}
+
 body {
   font-family: sans-serif;
-  padding: 20px;
+}
+
+main{
+	min-height: calc(100vh - 229px);	
+	display: flex;
+	align-items: center;
+	
+	& > div > div{
+		min-height: 50%;
+		min-height: 50vh;
+	}
+}
+
+
+footer{
+	background-color: #2a2730;
+    color: #99979c;
+    margin-top: 100px;
+    padding-bottom: 10px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.breadcrumb li.active a{
+	text-decoration: none;
+	color: #333333;
 }

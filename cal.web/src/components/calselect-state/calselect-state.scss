@@ -1,3 +1,11 @@
 .calselect-state {
-
+	.calendarTable{
+		.primary{
+			font-style: italic;
+		}
+		
+		tr, td{
+			cursor: pointer;
+		}
+	}
 }

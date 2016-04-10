@@ -52,6 +52,10 @@ ul[dnd-list] li {
     display: block;
     padding: 10px 15px;
     margin-bottom: -1px;
+    
+    &.trash{
+    	background-color: transparent;
+    }
 }
 
 /**

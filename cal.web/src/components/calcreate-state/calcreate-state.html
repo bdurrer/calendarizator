@@ -1,53 +1,57 @@
 <div class="calcreate-state">
-	<h1>Terminplan zusammenstellen</h1>
 	
+	<div class="page-header">
+		<h1>{{'page.createAppointments' | translate}}</h1>
+	</div>	
+
+	<div class="row">
 	
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12 col-md-6">
-				<h3>Deine Termine:</h3>
-				<ul dnd-list="calcreateState.selectionModel" dnd-drop="calcreateState.onDrop(index, item)">
-					<li ng-repeat="item in calcreateState.selectionModel"
-						dnd-draggable="item"
-						dnd-moved="calcreateState.selectionModel.splice($index, 1)"
-						dnd-effect-allowed="move"
-						dnd-selected="calcreateState.selectedItem = item"
-						ng-class="{'selected': calcreateState.selectedItem === item}"
-						ng-style="item.style"
-						>
-						{{item.date | moment:'DD. MMMM YY'}}: {{item.label}} <div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
-					</li>
-				</ul>
-			</div>
-			
-			<div class="col-sm-12 col-md-6">
-				<h3>Verfügbar:</h3>
-				<ul dnd-list="calcreateState.templates" dnd-allowed-types="[]">
-					<li ng-repeat="item in calcreateState.templates"
-						dnd-draggable="item"
-						dnd-effect-allowed="copy"
-						dnd-copied="item.id = item.id + 1"
-						ng-class="{'selected': calcreateState.selectedItem === item}"
-						ng-style="item.style"
-						>
-						{{item.label}} <div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
-					</li>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-12 col-md-6">
+			<h3>Deine Termine:</h3>
+			<ul dnd-list="calcreateState.selectionModel" dnd-drop="calcreateState.onDrop(index, item)">
+				<li ng-repeat="item in calcreateState.selectionModel"
+					dnd-draggable="item"
+					dnd-moved="calcreateState.selectionModel.splice($index, 1)"
+					dnd-effect-allowed="move"
+					dnd-selected="calcreateState.selectedItem = item"
+					ng-class="{'selected': calcreateState.selectedItem === item}"
+					ng-style="item.style"
+					>
+					{{item.date | moment:'DD. MMMM YY'}}: {{item.label}} <div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="col-sm-12 col-md-6">
+			<h3>Verfügbar:</h3>
+			<ul dnd-list="calcreateState.templates" dnd-allowed-types="[]">
+				<li ng-repeat="item in calcreateState.templates"
+					dnd-draggable="item"
+					dnd-effect-allowed="copy"
+					dnd-copied="item.id = item.id + 1"
+					ng-class="{'selected': calcreateState.selectedItem === item}"
+					ng-style="item.style"
+					>
+					{{item.label}} <div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-12 col-md-6">
+			<div class="trashcan box box-grey box-padding">
+				<!-- If you use [] as referenced list, the dropped elements will be lost -->
+				<h3>Abfalleimer</h3>
+				<ul dnd-list="[]" dnd-drop="calcreateState.onDelete(index, item)">
+					<li class="trash"><img src="/build/images/trashcan2.png" alt="{{'trashAlt' | translate}}"></li>
 				</ul>
 			</div>
 		</div>
-		
-		<div class="row">
-			<div class="col-sm-12 col-md-6">
-				<div class="trashcan box box-grey box-padding">
-					<!-- If you use [] as referenced list, the dropped elements will be lost -->
-					<h3>Abfalleimer</h3>
-					<ul dnd-list="[]" dnd-drop="calcreateState.onDelete(index, item)">
-						<li class="trash"><img src="/build/images/trashcan2.png" alt="{{'trashAlt' | translate}}"></li>
-					</ul>
-				</div>
-			</div>
-		
-		</div>
+	
 	</div>
 
 

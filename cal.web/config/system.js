@@ -17,6 +17,7 @@ System.config({
 
   map: {
     "angular": "github:angular/bower-angular@1.5.3",
+    "angular-cookies": "npm:angular-cookies@1.5.3",
     "angular-google-gapi": "npm:angular-google-gapi@1.0.0-beta.2",
     "angular-lazy": "github:matoilic/angular-lazy@0.2.2",
     "angular-mocks": "github:angular/bower-angular-mocks@1.5.3",

@@ -1,1 +1,43 @@
-<ui-view name="application"></ui-view>
+<header role="banner" id="top" class="navbar navbar-static-top">
+	<nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">{{'toggleNav' | translate }}</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Calendarizator</a>
+        </div>
+        <nav id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li ng-show="application.GData.getUser()"><a href="" >{{application.GData.getUser().name}}</a></li>
+			<li ng-show="!application.GData.getUser()"><a ui-sref="app.login">Login</a></li>
+			<li ng-show="application.GData.getUser()"><a href="" ng-click="application.logout()">Logout</a></li>
+          </ul>
+        </nav>
+      </div>
+    </nav>
+</header>
+
+<main>
+	<div class="container">
+		<ol class="breadcrumb">
+			<li>Calendarizator App</li>
+			<li ui-sref-active-eq="active"><a href ui-sref="app.calselect">{{'page.selectCal' | translate}}</a></li>
+			<li ui-sref-active-eq="active"><a href ui-sref="app.calcreate">{{'page.createAppointments' | translate}}</a></li>
+		</ol>
+
+		<div class="vertical-center">
+			<ui-view name="application"> state area </ui-view>
+		</div>
+	</div>
+</main>
+
+<footer class="footer">
+	<div class="container">
+		<p class="text-muted">Brought to you by coffee and Beat Durrer</p>
+	</div>
+</footer>
+
