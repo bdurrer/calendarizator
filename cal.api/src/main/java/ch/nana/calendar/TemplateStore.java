@@ -8,6 +8,11 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.users.User;
 
 import ch.nana.calendar.entity.EventTemplate;
@@ -29,12 +34,23 @@ public class TemplateStore {
 
 		employee.setProperty("attendedHrTraining", true);
 
-
 		return datastore.put(employee);
 	}
-	
-	public List<EventTemplate> getTemplates(User user){
+
+	public List<EventTemplate> getTemplates(User user) {
 		List<EventTemplate> templates = new ArrayList<>();
+
+		Filter userFilter = new FilterPredicate("owner", FilterOperator.EQUAL, user.getUserId());
+		Query q = new Query("Person").setFilter(userFilter);
+
+		// Use PreparedQuery interface to retrieve results
+		PreparedQuery pq = datastore.prepare(q);
+
+		for (Entity result : pq.asIterable()) {
+			String firstName = (String) result.getProperty("firstName");
+			String lastName = (String) result.getProperty("lastName");
+		}
+
 		return templates;
 	}
 }
