@@ -1,0 +1,54 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://${app.id}.appspot.com/_ah/api",
+  "name" : "calApi",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "discovery" : [ "PUBLIC" ],
+  "adapter" : {
+    "bns" : "https://${app.id}.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "calendarizator.appspot.com",
+  "ownerName" : "calendarizator.appspot.com",
+  "methods" : {
+    "calApi.doStuff" : {
+      "path" : "doDataStuff",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/calendar" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "ch.nana.calendar.CalendarizatorAPI.doDataStuff",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+    },
+    "methods" : {
+      "ch.nana.calendar.CalendarizatorAPI.doDataStuff" : {
+      }
+    }
+  }
+}
