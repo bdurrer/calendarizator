@@ -1,27 +1,34 @@
 package ch.nana.calendar;
 
-import java.util.logging.Logger;
+import java.util.List;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.users.User;
+
+import ch.nana.calendar.entity.EventTemplate;
 
 /** An endpoint class we are exposing */
 @Api(name = "calApi",
      version = "v1",
      scopes = {Constants.EMAIL_SCOPE, Constants.CALENDAR_SCOPE},
      namespace = @ApiNamespace(ownerDomain = "calendarizator.appspot.com",
-                                ownerName = "calendarizator.appspot.com",
-                                packagePath=""))
+                                ownerName = "calendarizator.appspot.com"))
 public class CalendarizatorAPI {
 	
-	private static final Logger log = Logger.getLogger(CalendarizatorAPI.class.getName());
+	private TemplateStore ts = new TemplateStore();
     
-	@ApiMethod(name = "doStuff") 
-	public void doDataStuff(User user){
+	@ApiMethod(name = "templates") 
+	public List<EventTemplate> getTemplates(User user){
 		TemplateStore ts = new TemplateStore();
-		ts.getTemplates(user);
+		return ts.getTemplates(user);
+	}
+	
+	@ApiMethod(name = "save", httpMethod="POST") 
+	public Key saveTempate(EventTemplate template, User user){
+		return ts.storeTemplate(template, user);
 	}
 	
 /*    

@@ -1,12 +1,12 @@
 package ch.nana.calendar;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
@@ -24,15 +24,25 @@ public class TemplateStore {
 
 	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-	public Key storeTemplate(EventTemplate template) {
-		Entity employee = new Entity("Employee");
-		employee.setProperty("firstName", "Antonio");
-		employee.setProperty("lastName", "Salieri");
-
-		Date hireDate = new Date();
-		employee.setProperty("hireDate", hireDate);
-
-		employee.setProperty("attendedHrTraining", true);
+	public Key storeTemplate(EventTemplate template, User user) {
+		Entity employee = new Entity("template");
+		
+		Key id = template.getId();
+		if( id != null ){
+			try {
+				employee = datastore.get(id);
+			} catch (EntityNotFoundException e) {}
+		}		
+		
+		employee.setProperty("ColorBackground", template.getColorBackground());
+		employee.setProperty("ColorForeground", template.getColorForeground());
+		employee.setProperty("From_hour", template.getFrom_hour());
+		employee.setProperty("From_min", template.getFrom_min());
+		employee.setProperty("Owner", user.getUserId());
+		employee.setProperty("Text", template.getText());
+		employee.setProperty("Title", template.getTitle());
+		employee.setProperty("To_hour", template.getTo_hour());
+		employee.setProperty("To_min", template.getTo_min());
 
 		return datastore.put(employee);
 	}
@@ -46,9 +56,20 @@ public class TemplateStore {
 		// Use PreparedQuery interface to retrieve results
 		PreparedQuery pq = datastore.prepare(q);
 
+		
 		for (Entity result : pq.asIterable()) {
-			String firstName = (String) result.getProperty("firstName");
-			String lastName = (String) result.getProperty("lastName");
+			EventTemplate tmpl = new EventTemplate();
+			tmpl.setColorBackground((String)result.getProperty("ColorBackground"));
+			tmpl.setColorForeground((String)result.getProperty("ColorBackground"));
+			tmpl.setFrom_hour((short)result.getProperty("ColorBackground"));
+			tmpl.setFrom_min((short)result.getProperty("ColorBackground"));
+			tmpl.setId((Key)result.getProperty("ColorBackground"));
+			tmpl.setOwner((String)result.getProperty("ColorBackground"));
+			tmpl.setText((String)result.getProperty("ColorBackground"));
+			tmpl.setTitle((String)result.getProperty("ColorBackground"));
+			tmpl.setTo_hour((short)result.getProperty("ColorBackground"));
+			tmpl.setTo_min((short)result.getProperty("ColorBackground"));
+			templates.add(tmpl);
 		}
 
 		return templates;
