@@ -6,13 +6,18 @@ import 'angular-ui-router';
 import 'ui-router-extras';
 import ocLazyLoad from 'oclazyload';
 import ngLazy from 'angular-lazy';
+
+import 'moment/moment';
+import 'moment/locale/de';
+
+import momentFilter from './moment-filter';
+
 import 'angular-translate';
 import translationsModule from './i18n/translations';
 
 import 'marceljuenemann/angular-drag-and-drop-lists';
 import 'angular-google-gapi';
-import 'moment/moment';
-import momentFilter from './moment-filter';
+
 
 import defaultLocaleConfig from './config/default-locale';
 import routingConfig from './config/routing';

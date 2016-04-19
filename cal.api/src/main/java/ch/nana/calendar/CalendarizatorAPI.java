@@ -21,14 +21,14 @@ public class CalendarizatorAPI {
 	
 	private TemplateStore ts = new TemplateStore();
     
-	@ApiMethod(name = "templates") 
+	@ApiMethod(name = "template.list") 
 	public List<EventTemplate> getTemplates(User user){
 		TemplateStore ts = new TemplateStore();
 		 return ts.getTemplates(user);
 	}
 	
 	
-	@ApiMethod(name = "save", httpMethod="POST") 
+	@ApiMethod(name = "template.save", httpMethod="POST") 
 	public Key saveTempate(EventTemplate template, User user){
 		return ts.storeTemplate(template, user);
 	}

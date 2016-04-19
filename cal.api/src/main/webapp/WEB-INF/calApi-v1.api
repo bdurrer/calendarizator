@@ -1,13 +1,13 @@
 {
   "extends" : "thirdParty.api",
   "abstract" : false,
-  "root" : "https://${app.id}.appspot.com/_ah/api",
+  "root" : "https://calendarizator.appspot.com/_ah/api",
   "name" : "calApi",
   "version" : "v1",
   "defaultVersion" : false,
   "discovery" : [ "PUBLIC" ],
   "adapter" : {
-    "bns" : "https://${app.id}.appspot.com/_ah/spi",
+    "bns" : "https://calendarizator.appspot.com/_ah/spi",
     "deadline" : 65.0,
     "type" : "lily"
   },
@@ -27,13 +27,13 @@
   "ownerDomain" : "calendarizator.appspot.com",
   "ownerName" : "calendarizator.appspot.com",
   "methods" : {
-    "calApi.templates" : {
+    "calApi.template.list" : {
       "path" : "eventtemplatecollection",
       "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/calendar" ],
       "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "948709330298-kj0d9ll4brtbg8e1urjhum7f7dt3515u.apps.googleusercontent.com" ],
       "rosyMethod" : "ch.nana.calendar.CalendarizatorAPI.getTemplates",
       "request" : {
         "body" : "empty"
@@ -42,13 +42,13 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "calApi.save" : {
+    "calApi.template.save" : {
       "path" : "saveTempate",
       "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/calendar" ],
       "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "948709330298-kj0d9ll4brtbg8e1urjhum7f7dt3515u.apps.googleusercontent.com" ],
       "rosyMethod" : "ch.nana.calendar.CalendarizatorAPI.saveTempate",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
@@ -67,9 +67,6 @@
         "properties" : {
           "id" : {
             "$ref" : "Key"
-          },
-          "owner" : {
-            "type" : "string"
           },
           "from_hour" : {
             "type" : "integer"

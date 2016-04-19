@@ -12,14 +12,14 @@ function de($translateProvider) {
             locationPlaceholder: 'z.B. Aarau, Schweiz',
             description: 'Beschreibung',
             tz: 'Zeitzone',
-			startDateSummary: 'Datum des ersten Termins',
-			startDate: 'Startdatum'
+            startDatePlaceholder: 'Datum des ersten Termins',
+            startDate: 'Startdatum'
         },
         calPrimary: 'Hauptkalender',
         buttonCreate: 'Erstellen',
         buttonReloadList: 'Liste neu laden',
         buttonSelectCal: 'Weiter mit gewähltem Kalender',
-		buttonCreateEvents: 'Daten in Kalender übertragen'
+        buttonCreateEvents: 'Daten in Kalender übertragen'
     });
 }
 
