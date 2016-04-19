@@ -14,6 +14,7 @@ import ch.nana.calendar.entity.EventTemplate;
 @Api(name = "calApi",
      version = "v1",
      scopes = {Constants.EMAIL_SCOPE, Constants.CALENDAR_SCOPE},
+     clientIds = {Constants.WEB_CLIENT_ID},
      namespace = @ApiNamespace(ownerDomain = "calendarizator.appspot.com",
                                 ownerName = "calendarizator.appspot.com"))
 public class CalendarizatorAPI {
@@ -23,8 +24,9 @@ public class CalendarizatorAPI {
 	@ApiMethod(name = "templates") 
 	public List<EventTemplate> getTemplates(User user){
 		TemplateStore ts = new TemplateStore();
-		return ts.getTemplates(user);
+		 return ts.getTemplates(user);
 	}
+	
 	
 	@ApiMethod(name = "save", httpMethod="POST") 
 	public Key saveTempate(EventTemplate template, User user){

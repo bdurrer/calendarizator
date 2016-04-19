@@ -31,6 +31,14 @@ class CalendarService {
         .then((response) => response.data);
     }
 
+    getEventTemplates() {
+        return this.GApi.executeAuth('calApi', 'templates');
+    }
+
+    saveEventTemplate(tmpl) {
+        return this.GApi.executeAuth('calApi', 'save', tmpl);
+    }
+
     getCalendarSelection() {
         return this.dataStore.calendarSelection;
     }

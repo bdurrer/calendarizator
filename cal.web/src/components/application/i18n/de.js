@@ -10,7 +10,7 @@ function de($translateProvider) {
             reader: 'Lesen',
             writer: 'Schreiben'
         },
-        
+
         page: {
             login: 'Login',
             selectCal: 'Kalender wählen',

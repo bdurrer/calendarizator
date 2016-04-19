@@ -23,26 +23,28 @@ import ch.nana.calendar.entity.EventTemplate;
 public class TemplateStore {
 
 	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+	
+	public final static String TEMPLATE_TABLE = "template";
 
 	public Key storeTemplate(EventTemplate template, User user) {
-		Entity employee = new Entity("template");
+		Entity employee = new Entity(TEMPLATE_TABLE);
 		
 		Key id = template.getId();
 		if( id != null ){
 			try {
 				employee = datastore.get(id);
 			} catch (EntityNotFoundException e) {}
-		}		
+		}
 		
-		employee.setProperty("ColorBackground", template.getColorBackground());
-		employee.setProperty("ColorForeground", template.getColorForeground());
-		employee.setProperty("From_hour", template.getFrom_hour());
-		employee.setProperty("From_min", template.getFrom_min());
-		employee.setProperty("Owner", user.getUserId());
-		employee.setProperty("Text", template.getText());
-		employee.setProperty("Title", template.getTitle());
-		employee.setProperty("To_hour", template.getTo_hour());
-		employee.setProperty("To_min", template.getTo_min());
+		employee.setProperty("colorBackground", template.getColorBackground());
+		employee.setProperty("colorForeground", template.getColorForeground());
+		employee.setProperty("from_hour", template.getFrom_hour());
+		employee.setProperty("from_min", template.getFrom_min());
+		employee.setProperty("owner", user.getUserId());
+		employee.setProperty("text", template.getText());
+		employee.setProperty("title", template.getTitle());
+		employee.setProperty("to_hour", template.getTo_hour());
+		employee.setProperty("to_min", template.getTo_min());
 
 		return datastore.put(employee);
 	}
@@ -51,7 +53,7 @@ public class TemplateStore {
 		List<EventTemplate> templates = new ArrayList<>();
 
 		Filter userFilter = new FilterPredicate("owner", FilterOperator.EQUAL, user.getUserId());
-		Query q = new Query("Person").setFilter(userFilter);
+		Query q = new Query(TEMPLATE_TABLE).setFilter(userFilter);
 
 		// Use PreparedQuery interface to retrieve results
 		PreparedQuery pq = datastore.prepare(q);
@@ -59,19 +61,22 @@ public class TemplateStore {
 		
 		for (Entity result : pq.asIterable()) {
 			EventTemplate tmpl = new EventTemplate();
-			tmpl.setColorBackground((String)result.getProperty("ColorBackground"));
-			tmpl.setColorForeground((String)result.getProperty("ColorBackground"));
-			tmpl.setFrom_hour((short)result.getProperty("ColorBackground"));
-			tmpl.setFrom_min((short)result.getProperty("ColorBackground"));
-			tmpl.setId((Key)result.getProperty("ColorBackground"));
-			tmpl.setOwner((String)result.getProperty("ColorBackground"));
-			tmpl.setText((String)result.getProperty("ColorBackground"));
-			tmpl.setTitle((String)result.getProperty("ColorBackground"));
-			tmpl.setTo_hour((short)result.getProperty("ColorBackground"));
-			tmpl.setTo_min((short)result.getProperty("ColorBackground"));
+			tmpl.setId(result.getKey());
+			tmpl.setColorBackground((String)result.getProperty("colorBackground"));
+			tmpl.setColorForeground((String)result.getProperty("colorForeground"));
+			tmpl.setFrom_hour(toShort(result.getProperty("from_hour")));
+			tmpl.setFrom_min(toShort(result.getProperty("from_min")));
+			tmpl.setText((String)result.getProperty("text"));
+			tmpl.setTitle((String)result.getProperty("title"));
+			tmpl.setTo_hour(toShort(result.getProperty("to_hour")));
+			tmpl.setTo_min(toShort(result.getProperty("to_min")));
 			templates.add(tmpl);
 		}
 
 		return templates;
+	}
+	
+	private Short toShort(Object longObj){
+		return longObj == null ? null : ((Long)longObj).shortValue();
 	}
 }

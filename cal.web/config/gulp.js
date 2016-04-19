@@ -31,6 +31,7 @@ module.exports = {
     },
     serverPort: 8088,
     serverPortTest: 8089,
+    serverBackendUrl: 'http://localhost:8080',
     livereload: false,
     notifications: true
 };

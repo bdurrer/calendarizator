@@ -20,7 +20,7 @@
 					ng-class="{'selected': calcreateState.selectedItem === item}"
 					ng-style="item.style"
 					>
-					{{item.date | moment:'DD. MMMM YY'}}: {{item.label}} <div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
+					{{item.date | moment:'DD. MMMM YY'}}: {{item.title}} <div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
 				</li>
 			</ul>
 		</div>
@@ -35,12 +35,12 @@
 					ng-class="{'selected': calcreateState.selectedItem === item}"
 					ng-style="item.style"
 					>
-					{{item.label}} <div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
+					{{item.title}} <div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
 				</li>
 			</ul>
 		</div>
 	</div>
-	
+		
 	<div class="row">
 		<div class="col-sm-12 col-md-6">
 			<div class="trashcan box box-grey box-padding">
@@ -51,7 +51,16 @@
 				</ul>
 			</div>
 		</div>
-	
+		<div class="col-sm-12 col-md-6" style="padding-top:100px">
+			<div class="col-sm-12">
+				<label class="col-sm-6 col-xs-12" for="startDate">{{'calendarsCreate.startDate' | translate}}*:</label>
+				<input class="col-sm-6 col-xs-12" id="startDate" name="startDate" required type="text" ng-model="calcreate.startDate" placeholder="{{'calendarsCreate.startDatePlaceholder' | translate}}" />
+			</div>
+			
+			<div class="col-sm-12 col-md-6 col-md-offset-6" style="padding-top:20px; padding-bottom:20px">
+				<button type="button" class="btn btn-primary" ng-click="calcreateState.createEvents()">{{'buttonCreateEvents' | translate}}</button>
+			</div>
+		</div>
 	</div>
 
 
