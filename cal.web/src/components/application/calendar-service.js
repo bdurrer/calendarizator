@@ -1,13 +1,23 @@
-
 class CalendarService {
 
-    constructor($http, GApi) {
-        this._http = $http;
+    constructor(GApi) {
         this.GApi = GApi;
-
         this.dataStore = {
-            calendarSelection: null
+            calendarSelection: null,
+            eventList: []
         };
+    }
+
+    /**
+     * This method handles login failures. It won't do anything if the error is NOT an auth error
+     */
+    handleGapiFailure(response) {
+        this.$log.debug('failed to fetch data from google API');
+        if (response && response.code === 401 && response.error) {
+            if (response.error.message === 'Login Required') {
+                this.$state.go('app.login');
+            }
+        }
     }
 
     getCalendars() {
@@ -16,11 +26,12 @@ class CalendarService {
             showDeleted: false,
             showHidden: false,
             maxResults: 30
-        });
+        })
+        .catch(this.handleGapiFailure);
     }
 
     createCalendar(paramObj) {
-        return this.GApi.executeAuth('calendar', 'calendars.insert', paramObj);
+        return this.GApi.executeAuth('calendar', 'calendars.insert', paramObj).catch(this.handleGapiFailure);
     }
 
     saveAppointments(calList) {
@@ -28,15 +39,19 @@ class CalendarService {
         .post('/api/v1/Calendar/', {
             cal: calList
         })
-        .then((response) => response.data);
+        .then((response) => response.data, this.handleGapiFailure);
+    }
+
+    getEventTemplate(id) {
+        return this.GApi.executeAuth('calApi', 'template.get', id).catch(this.handleGapiFailure);
     }
 
     getEventTemplates() {
-        return this.GApi.executeAuth('calApi', 'template.list');
+        return this.GApi.executeAuth('calApi', 'template.list').catch(this.handleGapiFailure);
     }
 
     saveEventTemplate(tmpl) {
-        return this.GApi.executeAuth('calApi', 'template.save', tmpl);
+        return this.GApi.executeAuth('calApi', 'template.save', tmpl).catch(this.handleGapiFailure);
     }
 
     getCalendarSelection() {
@@ -46,10 +61,17 @@ class CalendarService {
     setCalendarSelection(cal) {
         this.dataStore.calendarSelection = cal;
     }
+
+    getEventList() {
+        return this.dataStore.eventList;
+    }
+
+    setEventList(cal) {
+        this.dataStore.eventList = cal;
+    }
 }
 
 export default [
-    '$http',
     'GApi',
     CalendarService
 ];

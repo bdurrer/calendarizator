@@ -16,6 +16,7 @@
       "angular": "github:angular/bower-angular@^1.5.0",
       "angular-cookies": "npm:angular-cookies@^1.5.3",
       "angular-google-gapi": "npm:angular-google-gapi@^1.0.0-beta.2",
+      "angular-i18n": "npm:angular-i18n@^1.5.5",
       "angular-lazy": "github:matoilic/angular-lazy@^0.2.2",
       "angular-translate": "github:angular-translate/bower-angular-translate@^2.9.0",
       "angular-ui-bootstrap": "npm:angular-ui-bootstrap@^1.1.2",
@@ -24,6 +25,7 @@
       "json": "github:systemjs/plugin-json@^0.1.0",
       "marceljuenemann/angular-drag-and-drop-lists": "github:marceljuenemann/angular-drag-and-drop-lists@1.4.0",
       "moment": "npm:moment@^2.13.0",
+      "moment-timezone": "npm:moment-timezone@^0.5.3",
       "oclazyload": "github:ocombe/oclazyload@^1.0.9",
       "text": "github:systemjs/plugin-text@^0.0.2",
       "ui-router-extras": "github:christopherthielen/ui-router-extras@^0.0.14"

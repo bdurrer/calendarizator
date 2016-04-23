@@ -1,24 +1,40 @@
+import moment from 'moment/moment';
 
 class CalselectStateController {
 
-    constructor(calendarService, $state, $log) {
+    constructor(calendarService, authService, $state, $translate, $log, listItems) {
         this.calendarService = calendarService;
+        this.authService = authService;
         this.$state = $state;
         this.$log = $log;
-
-        this.list = [];
+        this.list = listItems || [];
         this.selectedItem = null;
         this.isLoading = false;
+
+        // make sure the current locale is shown
+        moment.locale($translate.use());
+
+        this.$log.debug(`timezone is guessed to be ${moment.tz.guess()}`);
+
         this.newCalParams = {
             name: null,
-            timeZone: 'Europe/Zurich'
+            timeZone: null
         };
 
-        this.loadCalendars();
+        try {
+            this.newCalParams.timeZone = moment.tz.guess();
+        } catch (err) {
+            this.newCalParams.timeZone = 'Europe/Zurich';
+        }
+
+        this.authService.checkLogin().then((txt) => {
+            this.$log.debug(`Calselect: Login check response was ${txt}`);
+        });
     }
 
     selectItem(item) {
         this.selectedItem = item;
+        this.$log.debug(`timezone is guessed to be ${moment.tz.guess()}`);
     }
 
     loadCalendars() {
@@ -28,17 +44,9 @@ class CalselectStateController {
             this.list = response.items;
             this.isLoading = false;
         },
-        (response) => this.handleGapiFailure(response));
-    }
-
-    handleGapiFailure(response) {
-        this.isLoading = false;
-        this.$log.debug('failed to fetch calendars');
-        if (response && response.code === 401 && response.error) {
-            if (response.error.message === 'Login Required') {
-                this.$state.go('app.login');
-            }
-        }
+        () => {
+            this.isLoading = false;
+        });
     }
 
     acceptSelection() {
@@ -55,13 +63,18 @@ class CalselectStateController {
             this.isLoading = false;
             this.selectedItem = response;
         },
-        (response) => this.handleGapiFailure(response));
+        () => {
+            this.isLoading = false;
+        });
     }
 }
 
 export default [
     'calendarService',
+    'authService',
     '$state',
+    '$translate',
     '$log',
+    'listItems',
     CalselectStateController
 ];

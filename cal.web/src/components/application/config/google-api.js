@@ -18,6 +18,17 @@ function googleApiConfig(GAuth, GApi) {
         console.log('an error occured during loading api: ' + resp.api + ', resp.version: ' + version);
     });
 */
+
+    // try auto-login using a auth cookie
+/* **** This is already handled in the application
+    const currentUser = $cookies.get('userId');
+    if (currentUser) {
+        GData.setUserId(currentUser);
+        GAuth.checkAuth().then(() => {
+            $state.go('app.calselect');
+        });
+    }
+*/
 }
 
 export default [

@@ -28,5 +28,11 @@
     "url": "calselect",
     "type": "load",
     "src": "components/calselect-state/index"
+  },
+  {
+    "name": "app.tmpledit",
+    "url": "tmpledit",
+    "type": "load",
+    "src": "components/tmpledit-state/index"
   }
 ]

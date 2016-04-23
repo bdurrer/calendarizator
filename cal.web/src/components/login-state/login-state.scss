@@ -1,3 +1,30 @@
 .login-state {
 
+    .chrome, .firefox, .ie{
+        margin-top: 50px;
+    }
+
+    .chrome img{
+        border: 1px solid #ccc;
+        border-style: solid solid none none;
+        box-shadow: 5px 5px 11px #888888;
+        width: 100%;
+        max-width: 426px;
+        margin: 0 5px 5px 0;
+    }
+    
+    .firefox img{
+        border: 1px solid #ccc;
+        border-style: solid none none solid;
+        box-shadow: -5px -5px 11px #888888;
+        width: 100%;
+        max-width: 426px;
+        margin: 5px 0 0 5px;
+    }
+    
+    .ie img{
+        width: 100%;
+        max-width: 627px;
+    }
+
 }

@@ -1,6 +1,7 @@
 import './stylesheets/application.css!';
 import 'babel/external-helpers';
 import angular from 'angular';
+import 'angular-i18n/de-CH';
 import 'angular-cookies';
 import 'angular-ui-router';
 import 'ui-router-extras';
@@ -9,15 +10,18 @@ import ngLazy from 'angular-lazy';
 
 import 'moment/moment';
 import 'moment/locale/de';
+import 'moment-timezone';
 
 import momentFilter from './moment-filter';
+
+import 'angular-ui-bootstrap';
 
 import 'angular-translate';
 import translationsModule from './i18n/translations';
 
 import 'marceljuenemann/angular-drag-and-drop-lists';
+// import 'angular-google-gapi/dist/angular-google-gapi';
 import 'angular-google-gapi';
-
 
 import defaultLocaleConfig from './config/default-locale';
 import routingConfig from './config/routing';
@@ -29,10 +33,12 @@ import ApplicationController from './application-controller';
 import applicationRoute from './application-route';
 
 import CalendarService from './calendar-service';
+import AuthService from './auth-service';
 
 const dependencies = [
     'ngCookies',
     'ui.router',
+    'ui.bootstrap',
     ocLazyLoad,
     'ct.ui.router.extras',
     'ct.ui.router.extras.future',
@@ -47,6 +53,7 @@ const app = angular
     .module('application-component', dependencies)
     .controller('ApplicationController', ApplicationController)
     .service('calendarService', CalendarService)
+    .service('authService', AuthService)
     .filter('moment', momentFilter)
     .config(routingConfig)
     .config(applicationRoute)

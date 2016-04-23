@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.users.User;
 
@@ -25,6 +26,12 @@ public class CalendarizatorAPI {
 	public List<EventTemplate> getTemplates(User user){
 		TemplateStore ts = new TemplateStore();
 		 return ts.getTemplates(user);
+	}
+	
+	@ApiMethod(name = "template.get") 
+	public EventTemplate getTemplate(User user, Key id) throws EntityNotFoundException{
+		TemplateStore ts = new TemplateStore();
+		 return ts.getTemplate(user, id);
 	}
 	
 	

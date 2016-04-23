@@ -3,10 +3,36 @@
 	<div class="page-header">
 		<h1>{{'page.createAppointments' | translate}}</h1>
 	</div>	
-
-	<div class="row">
-	
-	</div>
+    
+    <div class="row">
+		<div class="col-sm-12 col-md-6 form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="startDate">{{'calendarsCreate.startDate' | translate}}*:</label>
+                
+                <div class="input-group col-sm-6 col-xs-12">
+                    <input 
+                        class="form-control" 
+                        id="startDate" 
+                        name="startDate"
+                        uib-datepicker-popup="{{'datepicker.format' | translate}}" 
+                        ng-model="calcreateState.startDate"
+                        is-open="calcreateState.datePopupOpened" 
+                        datepicker-options="calcreateState.dateOptions" 
+                        ng-model-options="calcreateState.startDateOptions"
+                        ng-required="true" 
+                        close-text="Close" 
+                        alt-input-formats="calcreateState.dateAltInputFormats"
+                        placeholder="{{'calendarsCreate.startDatePlaceholder' | translate}}" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="calcreateState.openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <button type="button" class="btn btn-primary" ng-click="calcreateState.createEvents()">{{'buttonCreateEvents' | translate}}</button>
+        </div>
+    </div>
 	
 	<div class="row">
 		<div class="col-sm-12 col-md-6">
@@ -26,42 +52,31 @@
 		</div>
 		
 		<div class="col-sm-12 col-md-6">
-			<h3>Verfügbar:</h3>
-			<ul dnd-list="calcreateState.templates" dnd-allowed-types="[]">
-				<li ng-repeat="item in calcreateState.templates"
-					dnd-draggable="item"
-					dnd-effect-allowed="copy"
-                    dnd-copied="calcreateState.onCopyTemplate($index,item,'tmpl')"
-					ng-class="{'selected': calcreateState.selectedItem === item}"
-					ng-style="item.style"
-					>
-					{{item.title}} <div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
-				</li>
-			</ul>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>Verfügbar:</h3>
+                    <ul dnd-list="calcreateState.templates" dnd-allowed-types="[]">
+                        <li ng-repeat="item in calcreateState.templates"
+                            dnd-draggable="item"
+                            dnd-effect-allowed="copy"
+                            dnd-copied="calcreateState.onCopyTemplate($index,item,'tmpl')"
+                            ng-class="{'selected': calcreateState.selectedItem === item}"
+                            ng-style="item.style"
+                            >
+                            {{item.title}} <div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-12">
+                    <div class="trashcan box box-grey box-padding">
+                        <!-- If you use [] as referenced list, the dropped elements will be lost -->
+                        <h3>Abfalleimer</h3>
+                        <ul dnd-list="[]" dnd-drop="calcreateState.onDelete(index, item)">
+                            <li class="trash"><img src="/build/images/trashcan2.png" alt="{{'trashAlt' | translate}}"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 		</div>
 	</div>
-		
-	<div class="row">
-		<div class="col-sm-12 col-md-6">
-			<div class="trashcan box box-grey box-padding">
-				<!-- If you use [] as referenced list, the dropped elements will be lost -->
-				<h3>Abfalleimer</h3>
-				<ul dnd-list="[]" dnd-drop="calcreateState.onDelete(index, item)">
-					<li class="trash"><img src="/build/images/trashcan2.png" alt="{{'trashAlt' | translate}}"></li>
-				</ul>
-			</div>
-		</div>
-		<div class="col-sm-12 col-md-6" style="padding-top:100px">
-			<div class="col-sm-12">
-				<label class="col-sm-6 col-xs-12" for="startDate">{{'calendarsCreate.startDate' | translate}}*:</label>
-				<input class="col-sm-6 col-xs-12" id="startDate" name="startDate" required type="text" ng-model="calcreate.startDate" placeholder="{{'calendarsCreate.startDatePlaceholder' | translate}}" />
-			</div>
-			
-			<div class="col-sm-12 col-md-6 col-md-offset-6" style="padding-top:20px; padding-bottom:20px">
-				<button type="button" class="btn btn-primary" ng-click="calcreateState.createEvents()">{{'buttonCreateEvents' | translate}}</button>
-			</div>
-		</div>
-	</div>
-
-
 </div>

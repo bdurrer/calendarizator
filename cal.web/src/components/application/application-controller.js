@@ -1,59 +1,47 @@
 class ApplicationController {
 
-    constructor(GAuth, GData, $cookies, $state, $log) {
-        this.GAuth = GAuth;
+    constructor(authService, GData, $log, $rootScope) {
+        this.authService = authService;
         this.GData = GData;
-        this.$cookies = $cookies;
         this.$log = $log;
-        this.$state = $state;
+        this.transitionRunning = false;
 
-        if (!GData.isLogin()) {
-            // the user is already logged in
-            $state.go('app.login');
-        }
+        this.authService.checkLogin().then((txt) => this.$log.debug(`Application: Login check response was ${txt}`));
+
+        $rootScope.$on('$stateChangeStart', () => {
+            this.transitionRunning = true;
+        });
+
+        /* $rootScope.$on('$viewContentLoading', () => {
+            this.transitionRunning = false;
+        }); */
+
+        /* $rootScope.$on('$stateChangeSuccess', () => {
+            this.transitionRunning = false;
+        }); */
+
+        $rootScope.$on('$stateChangeError', () => {
+            this.transitionRunning = false;
+        });
+
+        $rootScope.$on('$viewContentLoaded', () => {
+            this.transitionRunning = false;
+        });
     }
 
     logout() {
-        const _self = this;
-        this.GAuth.logout().then(() => {
-            _self.$cookies.remove('userId');
-            _self.$state.go('app.login');
-        });
+        return this.authService.logout();
     }
 
     login() {
-        const _self = this;
-
-        const _ifLogin = function () {
-            if (_self.GData.getUserId() === null) {
-                _self.$log.debug('login returned successful, but the userId was NULL');
-            } else {
-                _self.$log.debug(`logged in successfully, userId is ${_self.GData.getUserId()}`);
-                _self.$cookies.put('userId', _self.GData.getUserId());
-                _self.$state.go('app.calselect');
-            }
-        };
-
-        this.GAuth.checkAuth().then(() => {
-            _self.$log.info('login check successful, skipping login()');
-            _ifLogin();
-        },
-        () => {
-            _self.$log.info('login over GAuth.login() now...');
-            _self.GAuth.login().then(() => _ifLogin(),
-            () => {
-                // failure-param: response
-                _self.$log.info('auth over GAuth.login() failed!');
-            });
-        });
+        return this.authService.login();
     }
 }
 
 export default [
-    'GAuth',
+    'authService',
     'GData',
-    '$cookies',
-    '$state',
     '$log',
+    '$rootScope',
     ApplicationController
 ];

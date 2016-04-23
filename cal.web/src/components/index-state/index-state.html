@@ -1,9 +1,24 @@
-<div class="index-state">
-
+﻿<div class="index-state">
+    
+    <div class="page-header">
+		<h1>{{'page.index' | translate}}</h1>
+	</div>	
+    
     <div class="row">
-		<div class="col-xs-8 col-sm-4 col-sm-offset-4">
-            <button type="button" class="btn btn-primary btn-lg" ui-sref="app.login">goto Login</button>
-        </div>
-    </div>
+		<div class="col-xs-8 col-xs-offset-2">
+			<p>Calendarizator hilft dir beim übertragen von Schichtplänen in deinem Google-Kalender.
+            </p>
+		</div>
+	</div>
+
+	<div class="row" style="margin-top: 50px">
+		<div class="col-xs-8 col-xs-offset-2" ng-show="!application.GData.getUser()">
+            <a ui-sref="app.login" class="btn btn-primary btn-lg">Los gehts!</a>
+		</div>
+        <div class="col-xs-8 col-xs-offset-2" ng-show="application.GData.getUser()">
+            <a ui-sref="app.calselect" class="btn btn-primary btn-lg">Los gehts!</a>
+		</div>
+	</div>
+        
 
 </div>

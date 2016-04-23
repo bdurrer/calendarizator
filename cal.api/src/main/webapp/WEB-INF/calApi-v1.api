@@ -27,6 +27,22 @@
   "ownerDomain" : "calendarizator.appspot.com",
   "ownerName" : "calendarizator.appspot.com",
   "methods" : {
+    "calApi.template.get" : {
+      "path" : "eventtemplate",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/calendar" ],
+      "audiences" : [ ],
+      "clientIds" : [ "948709330298-kj0d9ll4brtbg8e1urjhum7f7dt3515u.apps.googleusercontent.com" ],
+      "rosyMethod" : "ch.nana.calendar.CalendarizatorAPI.getTemplate",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "calApi.template.list" : {
       "path" : "eventtemplatecollection",
       "httpMethod" : "GET",
@@ -61,6 +77,34 @@
   },
   "descriptor" : {
     "schemas" : {
+      "Key" : {
+        "id" : "Key",
+        "type" : "object",
+        "properties" : {
+          "kind" : {
+            "type" : "string"
+          },
+          "appId" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "parent" : {
+            "$ref" : "Key"
+          },
+          "namespace" : {
+            "type" : "string"
+          },
+          "complete" : {
+            "type" : "boolean"
+          }
+        }
+      },
       "EventTemplate" : {
         "id" : "EventTemplate",
         "type" : "object",
@@ -94,34 +138,6 @@
           }
         }
       },
-      "Key" : {
-        "id" : "Key",
-        "type" : "object",
-        "properties" : {
-          "kind" : {
-            "type" : "string"
-          },
-          "appId" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "parent" : {
-            "$ref" : "Key"
-          },
-          "namespace" : {
-            "type" : "string"
-          },
-          "complete" : {
-            "type" : "boolean"
-          }
-        }
-      },
       "EventTemplateCollection" : {
         "id" : "EventTemplateCollection",
         "type" : "object",
@@ -136,6 +152,14 @@
       }
     },
     "methods" : {
+      "ch.nana.calendar.CalendarizatorAPI.getTemplate" : {
+        "request" : {
+          "$ref" : "Key"
+        },
+        "response" : {
+          "$ref" : "EventTemplate"
+        }
+      },
       "ch.nana.calendar.CalendarizatorAPI.getTemplates" : {
         "response" : {
           "$ref" : "EventTemplateCollection"

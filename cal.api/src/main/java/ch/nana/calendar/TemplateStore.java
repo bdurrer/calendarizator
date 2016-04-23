@@ -60,23 +60,35 @@ public class TemplateStore {
 
 		
 		for (Entity result : pq.asIterable()) {
-			EventTemplate tmpl = new EventTemplate();
-			tmpl.setId(result.getKey());
-			tmpl.setColorBackground((String)result.getProperty("colorBackground"));
-			tmpl.setColorForeground((String)result.getProperty("colorForeground"));
-			tmpl.setFrom_hour(toShort(result.getProperty("from_hour")));
-			tmpl.setFrom_min(toShort(result.getProperty("from_min")));
-			tmpl.setText((String)result.getProperty("text"));
-			tmpl.setTitle((String)result.getProperty("title"));
-			tmpl.setTo_hour(toShort(result.getProperty("to_hour")));
-			tmpl.setTo_min(toShort(result.getProperty("to_min")));
-			templates.add(tmpl);
+			
+			templates.add(toTemplate(result));
 		}
 
 		return templates;
 	}
 	
+	private EventTemplate toTemplate(Entity result){
+		EventTemplate tmpl = new EventTemplate();
+		tmpl.setId(result.getKey());
+		tmpl.setColorBackground((String)result.getProperty("colorBackground"));
+		tmpl.setColorForeground((String)result.getProperty("colorForeground"));
+		tmpl.setFrom_hour(toShort(result.getProperty("from_hour")));
+		tmpl.setFrom_min(toShort(result.getProperty("from_min")));
+		tmpl.setText((String)result.getProperty("text"));
+		tmpl.setTitle((String)result.getProperty("title"));
+		tmpl.setTo_hour(toShort(result.getProperty("to_hour")));
+		tmpl.setTo_min(toShort(result.getProperty("to_min")));
+		return tmpl;
+	}
+	
 	private Short toShort(Object longObj){
 		return longObj == null ? null : ((Long)longObj).shortValue();
+	}
+
+	public EventTemplate getTemplate(User user, Key id) throws EntityNotFoundException {
+		Entity entity = datastore.get(id);
+		EventTemplate tmpl = toTemplate(entity);
+		
+		return tmpl;
 	}
 }

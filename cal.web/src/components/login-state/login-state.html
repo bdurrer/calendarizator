@@ -1,23 +1,44 @@
 ﻿<div class="login-state">
 	
 	<div class="page-header">
-		<h1>{{'page.login' | translate}}</h1>
+		<h1>Hey, du!</h1>
 	</div>	
-	
+    
     <div class="row">
-		<div class="col-xs-8 col-xs-offset-2">
-			<p>
-                Diese Anwendung erstellt automatisch Termine in deinem Google-Kalender. Daher benötigt Sie Zugriff darauf.
-                Bitte bestätige in dem sich öffnenden Popup den Zugriff. 
-            </p>
-            <p>Falls kein Popup kommt, hat dein Popup-Blocker dies vermutlich verhindert.</p>
+		<div class="col-xs-12 col-md-6" style="text-align: justify;">
+        <div class="row" style="margin-bottom:40px;">
+			<div class="col-xs-12">
+                <p>Diese Anwendung greift auf deinen Google-Kalender zu und benötigt daher deine Einwilligung um auf deinen Kalender gewähren.</p>
+                <p>Wenn du dich das erste mal anmeldest, wird sich ein Popup-Fenster öffnen, sobald du auf den Login-Button klickst. Bitte bestätige dort den Zugriff auf deinen Kalender.</p>
+            </div>
+            
+            <div class="col-xs-12 chrome" ng-if="loginState.browser === 'chrome'">
+                <p>Falls kein Popup kommt, hat der Popup-Blocker dies verhindert. Klicke auf das Icon in der Browserleiste (oben), um Popups vorübergehend zuzulassen.</p>
+                <img src="/build/images/popup/chrome.png" />
+            </div>
+            
+            <div class="col-xs-12 ie" ng-if="loginState.browser === 'ie'">
+                <p>Falls kein Popup kommt, hat der Popup-Blocker dies verhindert. Klicke auf das "Einmal zulassen" in der Leiste unten am Browser, um Popups vorübergehend zuzulassen.</p>
+                <img src="/build/images/popup/ie.png" />
+            </div>
+            
+            <div class="col-xs-12 firefox" ng-if="loginState.browser === 'firefox'">
+                 <p>Falls kein Popup kommt, hat der Popup-Blocker dies verhindert. Klicke auf das Icon in der Browserleiste (oben), um Popups vorübergehend zuzulassen.</p>
+                <img src="/build/images/popup/firefox.png" />
+            </div>
+            
+            
+
+            <div class="col-xs-12  text-center" style="margin-top: 50px">
+                <button type="button" class="btn btn-primary btn-lg" ng-click="application.login()">Login</button>
+            </div>
+            </div>
 		</div>
+        <div class="col-xs-12 col-md-6">
+            <img src="/build/images/friendy-cow.jpg" class="cover-image" />
+        </div>
 	</div>
 
-	<div class="row" style="margin-top: 50px">
-		<div class="col-xs-8 col-xs-offset-2">
-			<button type="button" class="btn btn-primary btn-lg" ng-click="application.login()">Login</button>
-		</div>
-	</div>
+	
 
 </div>

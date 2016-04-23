@@ -5,26 +5,57 @@ import moment from 'moment/moment';
 
 class CalcreateStateController {
 
-    constructor(calendarService, $q, $translate, $log, $timeout) {
+    constructor(calendarService, authService, $q, $translate, $scope, $log, $timeout) {
         this.calendarService = calendarService;
+        this.authService = authService;
         this.$q = $q;
         this.$translate = $translate;
         this.$log = $log;
         this.$timeout = $timeout;
-        this.selectionModel = [];
-        this.selectionModelIdCounter = 1;
-
+        this.selectionModel = this.calendarService.getEventList();
         this.templates = [];
-
-        this.loadTemplates();
-
+        this.selectionModelIdCounter = 1;
         this.selectedItem = null;
+
+        this.authService.checkLogin()
+        .then((txt) => {
+            this.$log.debug(`CalCreate: Login check response was ${txt}`);
+            this.loadTemplates();
+        });
 
         // make sure the current locale is shown
         moment.locale($translate.use());
 
-        this.startDate = moment();
+        this.startDate = moment().toDate();
         this.updateModel();
+
+        // datepicker options
+        this.dateOptions = {
+            formatYear: 'yyyy',
+            startingDay: 1,
+            minDate: moment().subtract(1, 'year').toDate(),
+            maxDate: moment().add(1, 'year').toDate()
+        };
+        this.dateAltInputFormats = $translate.instant('datepicker.altInputFormats').split(';');
+        this.datePopupOpened = false;
+        this.startDateOptions = {
+            allowInvalid: false
+        };
+
+        $scope.$watch(() => this.startDate, () => {
+            this.$log.debug('startDate has changed');
+            this.updateModel();
+        });
+
+        // watch for changes and store them, so that the user can navigate safely
+        $scope.$watch(() => this.selectionModel, () => {
+            this.$log.debug('selection has changed and is updated in memory store');
+            this.calendarService.setEventList(this.selectionModel);
+        }, true);
+    }
+
+    openDatePicker() {
+        this.datePopupOpened = true;
     }
 
     loadTemplates() {
@@ -39,7 +70,9 @@ class CalcreateStateController {
             this.onTemplatesLoaded();
             this.isLoading = false;
         },
-        (response) => this.handleGapiFailure(response));
+        () => {
+            this.isLoading = false;
+        });
     }
 
     onTemplatesLoaded() {
@@ -55,6 +88,7 @@ class CalcreateStateController {
                 value.style.color = value.colorForeground;
             }
 
+            /* eslint-disable max-len */
             if (value.from_hour && !value.from) {
                 value.from = `${value.from_hour < 10 ? zero : empty}${value.from_hour}:${value.from_min < 10 ? zero : empty}${value.from_min}`;
             } else {
@@ -66,6 +100,7 @@ class CalcreateStateController {
             } else {
                 value.to = '';
             }
+            /* eslint-enable max-len */
         });
     }
 
@@ -90,21 +125,13 @@ class CalcreateStateController {
         }).then((response) => {
             this.$log.debug('saved default tmpl!');
             this.templates.push(response);
-        }, (response) => this.handleGapiFailure(response));
-    }
-
-    handleGapiFailure(response) {
-        this.isLoading = false;
-        this.$log.debug('failed to fetch data from google API');
-        if (response && response.code === 401 && response.error) {
-            if (response.error.message === 'Login Required') {
-                this.$state.go('app.login');
-            }
-        }
+        }, () => {
+            this.isLoading = false;
+        });
     }
 
     updateModel() {
-        let currentDate = this.startDate.clone();
+        let currentDate = moment(this.startDate).clone();
 
         angular.forEach(this.selectionModel, (item) => {
             item.date = currentDate;
@@ -126,12 +153,11 @@ class CalcreateStateController {
         this.$log.debug(`model with item.listid ${item.listid} dropped at ${index}`);
         if (!item.date) {
             // reduce the visible hopping by setting a default value
-            item.date = this.startDate.clone();
+            item.date = moment(this.startDate).clone();
         }
         this.$timeout(() => {
             this.updateModel();
         }, 100);
-
         return item;
     }
 
@@ -145,8 +171,10 @@ class CalcreateStateController {
 
 export default [
     'calendarService',
+    'authService',
     '$q',
     '$translate',
+    '$scope',
     '$log',
     '$timeout',
     CalcreateStateController
