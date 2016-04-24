@@ -8,7 +8,18 @@ function de($translateProvider) {
             freeBusyReader: 'Zusammenfassung lesen',
             owner: 'Besitzer',
             reader: 'Lesen',
-            writer: 'Schreiben'
+            writer: 'Schreiben',
+            none: 'Kein Zugriff'
+        },
+
+        acl: {
+            scopeType: {
+                default: 'Jedermann',
+                user: 'Benutzer',
+                group: 'Gruppe',
+                domain: 'Domäne'
+            },
+            emptylist: 'Keine Freigaben'
         },
 
         page: {
@@ -38,7 +49,8 @@ function de($translateProvider) {
         buttonCreate: 'Erstellen',
         buttonReloadList: 'Liste neu laden',
         buttonSelectCal: 'Weiter mit gewähltem Kalender',
-        buttonCreateEvents: 'Daten in Kalender übertragen',
+        buttonCreateEvents: 'Fertig! Termine in Kalender übertragen',
+        buttonClearEvents: 'Liste leeren',
 
         datepicker: {
             format: 'dd.MM.yyyy',

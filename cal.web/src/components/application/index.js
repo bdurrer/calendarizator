@@ -3,6 +3,7 @@ import 'babel/external-helpers';
 import angular from 'angular';
 import 'angular-i18n/de-CH';
 import 'angular-cookies';
+import 'angular-sanitize';
 import 'angular-ui-router';
 import 'ui-router-extras';
 import ocLazyLoad from 'oclazyload';
@@ -37,6 +38,7 @@ import AuthService from './auth-service';
 
 const dependencies = [
     'ngCookies',
+    'ngSanitize',
     'ui.router',
     'ui.bootstrap',
     ocLazyLoad,

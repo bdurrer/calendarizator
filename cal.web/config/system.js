@@ -22,6 +22,7 @@ System.config({
     "angular-i18n": "npm:angular-i18n@1.5.5",
     "angular-lazy": "github:matoilic/angular-lazy@0.2.2",
     "angular-mocks": "github:angular/bower-angular-mocks@1.5.3",
+    "angular-sanitize": "npm:angular-sanitize@1.5.5",
     "angular-translate": "github:angular-translate/bower-angular-translate@2.11.0",
     "angular-ui-bootstrap": "npm:angular-ui-bootstrap@1.3.1",
     "angular-ui-router": "github:angular-ui/ui-router@0.2.18",
@@ -98,6 +99,9 @@ System.config({
     },
     "npm:angular-google-gapi@1.0.0-beta.2": {
       "angular": "npm:angular@1.5.3"
+    },
+    "npm:angular-sanitize@1.5.5": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:assert@1.3.0": {
       "util": "npm:util@0.10.3"

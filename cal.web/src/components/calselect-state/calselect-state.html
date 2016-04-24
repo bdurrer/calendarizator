@@ -19,7 +19,7 @@
 	    			<tbody>
 	    				<tr ng-repeat="item in calselectState.list track by item.id" ng-click="calselectState.selectItem(item)" ng-class="{primary : item.primary}">
 	    					<td><input type="radio" name="selectItem" ng-value="item" ng-model="calselectState.selectedItem"></td>
-	    					<td>{{item.summary}}</td>
+	    					<td><div class="color-box" style="background-color:{{item.backgroundColor}};"></div> {{item.summary}}</td>
 	    					<td>{{'calRole.' + item.accessRole | translate}}</td>
 	    					<td><span ng-show="item.primary">{{'calPrimary' | translate}}</span> <span class="hidden-xs">{{item.description}}</span></td>
 	    					<td class="hidden-xs">{{item.timeZone}}</td>
@@ -74,11 +74,4 @@
 	    	</div>
 	    </div>
     </form>
-
-	<div class="row" style="margin-top: 50px">
-		<div class="col-xs-8 col-xs-offset-2">
-			
-		</div>
-	</div>
-
 </div>

@@ -15,7 +15,7 @@ import ch.nana.calendar.entity.EventTemplate;
 @Api(name = "calApi",
      version = "v1",
      scopes = {Constants.EMAIL_SCOPE, Constants.CALENDAR_SCOPE},
-     clientIds = {Constants.WEB_CLIENT_ID},
+     clientIds = {Constants.WEB_CLIENT_ID, com.google.api.server.spi.Constant.API_EXPLORER_CLIENT_ID},
      namespace = @ApiNamespace(ownerDomain = "calendarizator.appspot.com",
                                 ownerName = "calendarizator.appspot.com"))
 public class CalendarizatorAPI {

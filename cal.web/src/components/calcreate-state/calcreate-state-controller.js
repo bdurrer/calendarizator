@@ -1,22 +1,45 @@
-/* eslint no-param-reassign: 0 */
+﻿/* eslint no-param-reassign: 0 */
 
 import angular from 'angular';
 import moment from 'moment/moment';
 
 class CalcreateStateController {
 
-    constructor(calendarService, authService, $q, $translate, $scope, $log, $timeout) {
+    constructor(calendarService, authService, $q, $translate, $scope, $log, $timeout, $state) {
         this.calendarService = calendarService;
         this.authService = authService;
         this.$q = $q;
         this.$translate = $translate;
         this.$log = $log;
         this.$timeout = $timeout;
+        this.$state = $state;
+
+        /** the previously selected calendar which we'll gonna insert events */
+        this.selectedCalendar = this.calendarService.getCalendarSelection();
+        if (!this.selectedCalendar || !this.selectedCalendar.id) {
+            $state.go('app.calselect');
+            return;
+        }
+
+        /** the user's list of events he's building. is backed up into memory on every change */
         this.selectionModel = this.calendarService.getEventList();
+
+        /** the available event templates to drag into the selectionModel */
         this.templates = [];
+
+        /** counter to ensure items in the selectionModel are unique. We don't care but ng-repeat needs an identifier */
         this.selectionModelIdCounter = 1;
+
+        /* the currently dragged item */
         this.selectedItem = null;
 
+        /** the list of permissions on the selected calendar */
+        this.acl = [];
+        this.calendarService.getCalendarAcl(this.selectedCalendar.id).then((response) => {
+            this.acl = response.items;
+        });
+
+        // make sure that the user IS authed, though he's unlikely to be unauthed
         this.authService.checkLogin()
         .then((txt) => {
             this.$log.debug(`CalCreate: Login check response was ${txt}`);
@@ -26,10 +49,13 @@ class CalcreateStateController {
         // make sure the current locale is shown
         moment.locale($translate.use());
 
+        /** the date of the first event. can be changed by the user */
         this.startDate = moment().toDate();
+
+        /** make sure date and idCounter are set on every event item */
         this.updateModel();
 
-        // datepicker options
+        /** datepicker options */
         this.dateOptions = {
             formatYear: 'yyyy',
             startingDay: 1,
@@ -42,6 +68,7 @@ class CalcreateStateController {
             allowInvalid: false
         };
 
+        // we need to update the dates on ally items when the user changes the start date
         $scope.$watch(() => this.startDate, () => {
             this.$log.debug('startDate has changed');
             this.updateModel();
@@ -54,10 +81,10 @@ class CalcreateStateController {
         }, true);
     }
 
-    openDatePicker() {
-        this.datePopupOpened = true;
-    }
 
+    /**
+     * Hi server, I would like to have some data. Pleeease.
+     */
     loadTemplates() {
         this.isLoading = true;
         this.calendarService.getEventTemplates().then((response) => {
@@ -75,6 +102,10 @@ class CalcreateStateController {
         });
     }
 
+    /**
+     * called when the server response with the templates is here.
+     * We need to improve the styling of the data a bit.
+     */
     onTemplatesLoaded() {
         const zero = '0';
         const empty = '';
@@ -104,18 +135,110 @@ class CalcreateStateController {
         });
     }
 
-    createDefaultTemplates() {
-        const promises = [];
-        promises.push(this.createDefaultTemplate('Fruehdienst', '#dff0d8', null, 9, 50, 15, 30));
-        promises.push(this.createDefaultTemplate('Spaetdienst', '#d9edf7', null, 15, 15, 23, 45));
-        promises.push(this.createDefaultTemplate('Nacht', '#fcf8e3', null, 23, 45, 7, 45));
-        promises.push(this.createDefaultTemplate('Frei', '#ffffff', null, null, null, null, null));
-        this.$q.all(promises).then(this.onTemplatesLoaded());
+    /**
+     * let's get serious: Inserts the current event model into the user's calendar
+     */
+    createEvents() {
+        this.$log.info(`woah, that human actually wants to save his ${this.selectionModel.length} events`);
+        if (!this.selectedCalendar || !this.selectedCalendar.id) {
+            this.$log.info('yo human, why u no selecting a calendar first? Abort, I do.');
+            return;
+        }
+        this.insertProgressCount = 0;
+        this.insertInProgress = true;
+        // const tz = this.selectedCalendar.timeZone;
+        // moment("2013-11-18").tz("America/Toronto")
+
+        const eventList = [];
+        angular.forEach(this.selectionModel, (item) => {
+            if (!item.from_hour || !item.to_hour) {
+                this.$log.debug(`selection item ${item.title} has no time, skipping it`);
+                return;
+            }
+            const fromDate = item.date.clone();
+            fromDate.hours(item.from_hour);
+            fromDate.minutes(item.from_min);
+            fromDate.seconds(0);
+            fromDate.milliseconds(0);
+
+            const toDate = item.date.clone();
+            toDate.hours(item.to_hour);
+            toDate.minutes(item.to_min);
+            toDate.seconds(0);
+            toDate.milliseconds(0);
+
+            if (toDate.diff(fromDate, 'minutes') < 0) {
+                toDate.add(1, 'days');
+            }
+
+            const event = {
+                start: {
+                    dateTime: fromDate.toISOString(),
+                    timeZone: this.selectionModel.timeZone
+                },
+                end: {
+                    dateTime: toDate.toISOString(),
+                    timeZone: this.selectionModel.timeZone
+                },
+                summary: item.title,
+                description: item.text,
+                source: {
+                    title: 'Calendarizator App',
+                    url: 'https://calendarizator.appspot.com/'
+                }
+            };
+            eventList.push(event);
+        });
+
+        // this.$log.debug(JSON.stringify(eventList));
+        this.insertAllEventsInSequence(eventList).then((response) => {
+            this.insertInProgress = false;
+            this.$log.info('finished inserting events!');
+        });
     }
 
-    createDefaultTemplate(title, colorBackground, colorForeground, fromHour, fromMin, toHour, toMin) {
+    insertAllEventsInSequence(arr) {
+        // chain the inserting
+        return arr.reduce((promise, eventItem) =>
+            promise.then((result) => {
+                return this.insertEvent(result, eventItem).then(() => {
+                    this.$log.debug(`finished item ${this.insertProgressCount}`);
+                    this.insertProgressCount++;
+                });
+            }),
+            this.$q.when([]));
+    }
+
+    insertEvent(result, eventItem) {
+        return this.calendarService.saveAppointment(this.selectedCalendar.id, eventItem).then((response) => {
+            const resultArr = result || [];
+            resultArr.push(response);
+            return resultArr;
+        });
+    }
+
+    /**
+     * initializes the templates of this user with the default templates
+     */
+    createDefaultTemplates() {
+        const promises = [];
+        promises.push(this.createDefaultTemplate(1, 'Frei', null, '#FBFBFB', '#1d1d1d', null, null, null, null));
+        promises.push(this.createDefaultTemplate(2, 'Frühdienst', 1, '#a4bdfc', '#1d1d1d', 7, 0, 15, 38));
+        promises.push(this.createDefaultTemplate(3, 'Spätdienst', 2, '#7ae7bf', '#1d1d1d', 15, 0, 23, 38));
+        promises.push(this.createDefaultTemplate(4, 'Nacht', 3, '#dbadff', '#1d1d1d', 23, 0, 7, 38));
+        this.$q.all(promises).then(() => {
+            this.$timeout(this.loadTemplates(), 2000);
+        });
+    }
+
+    /**
+     * initializes the templates of this user with the default templates
+     */
+    createDefaultTemplate(orderId, title, colorId, colorBackground, colorForeground, fromHour, fromMin, toHour, toMin) {
         return this.calendarService.saveEventTemplate({
+            orderId,
             title,
+            colorId,
             colorBackground,
             colorForeground,
             from_hour: fromHour,
@@ -123,13 +246,15 @@ class CalcreateStateController {
             to_hour: toHour,
             to_min: toMin
         }).then((response) => {
-            this.$log.debug('saved default tmpl!');
-            this.templates.push(response);
-        }, () => {
-            this.isLoading = false;
+            this.$log.debug(`saved default tmpl ${title}!`);
+            return response;
         });
     }
 
+    /**
+     * updates all items in the selectionModel, so that the dates are in sequence
+     * and every item has an ID (to make ng-repeat happy).
+     */
     updateModel() {
         let currentDate = moment(this.startDate).clone();
 
@@ -143,12 +268,18 @@ class CalcreateStateController {
         });
     }
 
+    /**
+     * called by the drag&drop directive when a item is dragged from the templates to the selectionModel
+     */
     onCopyTemplate(index, item, what) {
         this.selectionModelIdCounter++;
         item.listid = this.selectionModelIdCounter;
         this.$log.debug(`onCopyTemplate item.listid ${item.listid} running on ${what}`);
     }
 
+    /**
+     * called by the drag&drop directive when a item is dropped
+     */
     onDrop(index, item) {
         this.$log.debug(`model with item.listid ${item.listid} dropped at ${index}`);
         if (!item.date) {
@@ -161,11 +292,21 @@ class CalcreateStateController {
         return item;
     }
 
+    /**
+     * called by the drag&drop directive when a item is dropped onto the trash can
+     */
     onDelete() {
         this.$timeout(() => {
             this.updateModel();
         }, 100);
         return true;
+    }
+
+    /**
+     * Triggered by the datepicker button
+     */
+    openDatePicker() {
+        this.datePopupOpened = true;
     }
 }
 
@@ -177,5 +318,6 @@ export default [
     '$scope',
     '$log',
     '$timeout',
+    '$state',
     CalcreateStateController
 ];

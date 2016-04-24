@@ -27,14 +27,14 @@
   "ownerDomain" : "calendarizator.appspot.com",
   "ownerName" : "calendarizator.appspot.com",
   "methods" : {
-    "calApi.template.get" : {
-      "path" : "eventtemplate",
-      "httpMethod" : "GET",
+    "calApi.template.save" : {
+      "path" : "saveTempate",
+      "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/calendar" ],
       "audiences" : [ ],
-      "clientIds" : [ "948709330298-kj0d9ll4brtbg8e1urjhum7f7dt3515u.apps.googleusercontent.com" ],
-      "rosyMethod" : "ch.nana.calendar.CalendarizatorAPI.getTemplate",
+      "clientIds" : [ "948709330298-kj0d9ll4brtbg8e1urjhum7f7dt3515u.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "ch.nana.calendar.CalendarizatorAPI.saveTempate",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -49,7 +49,7 @@
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/calendar" ],
       "audiences" : [ ],
-      "clientIds" : [ "948709330298-kj0d9ll4brtbg8e1urjhum7f7dt3515u.apps.googleusercontent.com" ],
+      "clientIds" : [ "948709330298-kj0d9ll4brtbg8e1urjhum7f7dt3515u.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "ch.nana.calendar.CalendarizatorAPI.getTemplates",
       "request" : {
         "body" : "empty"
@@ -58,14 +58,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "calApi.template.save" : {
-      "path" : "saveTempate",
-      "httpMethod" : "POST",
+    "calApi.template.get" : {
+      "path" : "eventtemplate",
+      "httpMethod" : "GET",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/calendar" ],
       "audiences" : [ ],
-      "clientIds" : [ "948709330298-kj0d9ll4brtbg8e1urjhum7f7dt3515u.apps.googleusercontent.com" ],
-      "rosyMethod" : "ch.nana.calendar.CalendarizatorAPI.saveTempate",
+      "clientIds" : [ "948709330298-kj0d9ll4brtbg8e1urjhum7f7dt3515u.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "ch.nana.calendar.CalendarizatorAPI.getTemplate",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -77,34 +77,6 @@
   },
   "descriptor" : {
     "schemas" : {
-      "Key" : {
-        "id" : "Key",
-        "type" : "object",
-        "properties" : {
-          "kind" : {
-            "type" : "string"
-          },
-          "appId" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "parent" : {
-            "$ref" : "Key"
-          },
-          "namespace" : {
-            "type" : "string"
-          },
-          "complete" : {
-            "type" : "boolean"
-          }
-        }
-      },
       "EventTemplate" : {
         "id" : "EventTemplate",
         "type" : "object",
@@ -138,6 +110,34 @@
           }
         }
       },
+      "Key" : {
+        "id" : "Key",
+        "type" : "object",
+        "properties" : {
+          "kind" : {
+            "type" : "string"
+          },
+          "appId" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "parent" : {
+            "$ref" : "Key"
+          },
+          "namespace" : {
+            "type" : "string"
+          },
+          "complete" : {
+            "type" : "boolean"
+          }
+        }
+      },
       "EventTemplateCollection" : {
         "id" : "EventTemplateCollection",
         "type" : "object",
@@ -152,12 +152,12 @@
       }
     },
     "methods" : {
-      "ch.nana.calendar.CalendarizatorAPI.getTemplate" : {
+      "ch.nana.calendar.CalendarizatorAPI.saveTempate" : {
         "request" : {
-          "$ref" : "Key"
+          "$ref" : "EventTemplate"
         },
         "response" : {
-          "$ref" : "EventTemplate"
+          "$ref" : "Key"
         }
       },
       "ch.nana.calendar.CalendarizatorAPI.getTemplates" : {
@@ -165,12 +165,12 @@
           "$ref" : "EventTemplateCollection"
         }
       },
-      "ch.nana.calendar.CalendarizatorAPI.saveTempate" : {
+      "ch.nana.calendar.CalendarizatorAPI.getTemplate" : {
         "request" : {
-          "$ref" : "EventTemplate"
+          "$ref" : "Key"
         },
         "response" : {
-          "$ref" : "Key"
+          "$ref" : "EventTemplate"
         }
       }
     }

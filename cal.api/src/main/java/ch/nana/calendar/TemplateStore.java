@@ -45,6 +45,8 @@ public class TemplateStore {
 		employee.setProperty("title", template.getTitle());
 		employee.setProperty("to_hour", template.getTo_hour());
 		employee.setProperty("to_min", template.getTo_min());
+		employee.setProperty("color_id", template.getColorId());
+		employee.setProperty("order_id", template.getOrderId());
 
 		return datastore.put(employee);
 	}
@@ -78,6 +80,8 @@ public class TemplateStore {
 		tmpl.setTitle((String)result.getProperty("title"));
 		tmpl.setTo_hour(toShort(result.getProperty("to_hour")));
 		tmpl.setTo_min(toShort(result.getProperty("to_min")));
+		tmpl.setColorId((String)result.getProperty("color_id"));
+		tmpl.setOrderId(toShort(result.getProperty("order_id")));
 		return tmpl;
 	}
 	

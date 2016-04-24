@@ -1,62 +1,151 @@
-<div class="calcreate-state">
+﻿<div class="calcreate-state">
 	
+    <script type="text/ng-template" id="user.scope.html">
+        <span>{{item.scope.value}}</span>
+    </script>
+    <script type="text/ng-template" id="default.scope.html">
+        <span>{{'acl.scopeType.' + item.scope.type | translate}}</span>
+    </script>
+    <script type="text/ng-template" id="group.scope.html">
+        <span>{{'acl.scopeType.' + item.scope.type | translate}}: {{item.scope.value}}</span>
+    </script>
+    <script type="text/ng-template" id="domain.scope.html">
+        <span>{{'acl.scopeType.' + item.scope.type | translate}}: {{item.scope.value}}</span>
+    </script>
+    
 	<div class="page-header">
 		<h1>{{'page.createAppointments' | translate}}</h1>
 	</div>	
     
-    <div class="row">
-		<div class="col-sm-12 col-md-6 form-horizontal">
-            <div class="form-group">
-                <label class="col-sm-3 control-label" for="startDate">{{'calendarsCreate.startDate' | translate}}*:</label>
-                
-                <div class="input-group col-sm-6 col-xs-12">
-                    <input 
-                        class="form-control" 
-                        id="startDate" 
-                        name="startDate"
-                        uib-datepicker-popup="{{'datepicker.format' | translate}}" 
-                        ng-model="calcreateState.startDate"
-                        is-open="calcreateState.datePopupOpened" 
-                        datepicker-options="calcreateState.dateOptions" 
-                        ng-model-options="calcreateState.startDateOptions"
-                        ng-required="true" 
-                        close-text="Close" 
-                        alt-input-formats="calcreateState.dateAltInputFormats"
-                        placeholder="{{'calendarsCreate.startDatePlaceholder' | translate}}" />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="calcreateState.openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
-                    </span>
+    <div class="panel panel-default">
+        <div class="panel-heading">Kalenderinformationen</div>
+        <div class="panel-body">
+        
+            <div class="form-horizontal">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="row info">
+                            <div class="col-sm-6 info-label">
+                                <p>Gewählter Kalender:</p>
+                            </div>
+                            <div class="col-sm-6 info-text">
+                                <p>{{calcreateState.selectedCalendar.summary}}</p>
+                            </div>
+                        </div>
+                        <div class="row info">
+                            <div class="col-sm-6 info-label">
+                                <p>Zeitzone:</p>
+                            </div>
+                            <div class="col-sm-6 info-text">
+                                <p>{{calcreateState.selectedCalendar.timeZone}}</p>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="row info">
+                            <div class="col-sm-4 info-label">
+                                <p>Freigaben:</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="table-responsive">
+                                    <table class="table table-striped calendarTable">
+                                        <tbody>
+                                            <tr ng-repeat="item in filteredList = (calcreateState.acl | filter:{role: '!owner'})">
+                                                <td ng-include="item.scope.type + '.scope.html'"></td>
+                                                <td>{{'calRole.' + item.role | translate}}</td>
+                                            </tr>
+                                            <tr ng-hide="filteredList.length">
+                                                <td>{{'acl.emptylist' | translate}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
+        
         </div>
-        <div class="col-sm-12 col-md-6">
-            <button type="button" class="btn btn-primary" ng-click="calcreateState.createEvents()">{{'buttonCreateEvents' | translate}}</button>
-        </div>
-    </div>
-	
+    </div><!-- end panel-->
+        
+    
 	<div class="row">
 		<div class="col-sm-12 col-md-6">
-			<h3>Deine Termine:</h3>
-			<ul dnd-list="calcreateState.selectionModel" dnd-drop="calcreateState.onDrop(index, item)" class="dropzone">
-				<li ng-repeat="item in calcreateState.selectionModel"
-					dnd-draggable="item"
-					dnd-effect-allowed="move"
-                    dnd-moved="calcreateState.selectionModel.splice($index, 1)"
-					dnd-selected="calcreateState.selectedItem = item"
-					ng-class="{'selected': calcreateState.selectedItem === item}"
-					ng-style="item.style"
-					>
-					<div class="date">{{item.date | moment:'ddd DD. MMMM YY'}}</div> <div class="title">{{item.title}}</div><div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
-				</li>
-			</ul>
-		</div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3 class="panel-title">Dein Terminplan</h3></div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group info">
+                            <label class="col-sm-5 control-label" for="startDate">{{'calendarsCreate.startDate' | translate}}*:</label>
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <input 
+                                        class="form-control" 
+                                        id="startDate" 
+                                        name="startDate"
+                                        uib-datepicker-popup="{{'datepicker.format' | translate}}" 
+                                        ng-model="calcreateState.startDate"
+                                        is-open="calcreateState.datePopupOpened" 
+                                        datepicker-options="calcreateState.dateOptions" 
+                                        ng-model-options="calcreateState.startDateOptions"
+                                        ng-required="true" 
+                                        close-text="Close" 
+                                        alt-input-formats="calcreateState.dateAltInputFormats"
+                                        placeholder="{{'calendarsCreate.startDatePlaceholder' | translate}}" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="calcreateState.openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                
+                    <p class="help">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        Ändere die Reihenfolge, indem du Einträge mit der Maus verschiebst.
+                    </p>
+                    <ul dnd-list="calcreateState.selectionModel" dnd-drop="calcreateState.onDrop(index, item)" class="dropzone" ng-class="{empty: !calcreateState.selectionModel.length}">
+                        <li ng-repeat="item in calcreateState.selectionModel"
+                            dnd-draggable="item"
+                            dnd-effect-allowed="move"
+                            dnd-moved="calcreateState.selectionModel.splice($index, 1)"
+                            dnd-selected="calcreateState.selectedItem = item"
+                            ng-class="{'selected': calcreateState.selectedItem === item}"
+                            ng-style="item.style"
+                            >
+                            <div class="date">{{item.date | moment:'ddd DD. MMMM YY'}}</div> <div class="title">{{item.title}}</div><div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
+                        </li>
+                        <li class="dndPlaceholder">
+                            Element hier einreihen
+                        </li>
+                    </ul>
+                    
+
+                    <div class="btn-row">
+                        <span>
+                            <button type="button" class="btn btn-default " ng-click="calcreateState.clearSelectionModel()">{{'buttonClearEvents' | translate}}</button>
+                        </span>
+                        <span class="pull-right">
+                            <button type="button" class="btn btn-primary " ng-click="calcreateState.createEvents()">{{'buttonCreateEvents' | translate}}</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end panel-->
 		
 		<div class="col-sm-12 col-md-6">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h3>Verfügbar:</h3>
-                    <ul dnd-list="calcreateState.templates" dnd-allowed-types="[]">
-                        <li ng-repeat="item in calcreateState.templates"
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3 class="panel-title">Vorlagen</h3></div>
+                <div class="panel-body">
+                    <p class="help">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        Ziehe Elemente mit der Maus in deinen Terminplan.
+                    </p>
+                    <ul dnd-list="calcreateState.templates" dnd-allowed-types="[]" class="templates">
+                        <li ng-repeat="item in calcreateState.templates | orderBy:'orderId'"
                             dnd-draggable="item"
                             dnd-effect-allowed="copy"
                             dnd-copied="calcreateState.onCopyTemplate($index,item,'tmpl')"
@@ -67,10 +156,17 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-sm-12">
+            </div><!-- end panel-->
+            
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3 class="panel-title">Abfalleimer</h3></div>
+                <div class="panel-body">
+                    <p class="help">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                        Einträge auf dem Abfalleimer loslassen, um sie zu löschen.
+                    </p>
                     <div class="trashcan box box-grey box-padding">
                         <!-- If you use [] as referenced list, the dropped elements will be lost -->
-                        <h3>Abfalleimer</h3>
                         <ul dnd-list="[]" dnd-drop="calcreateState.onDelete(index, item)">
                             <li class="trash"><img src="/build/images/trashcan2.png" alt="{{'trashAlt' | translate}}"></li>
                         </ul>
@@ -79,4 +175,15 @@
             </div>
 		</div>
 	</div>
+    
+    <div class="overlay progress-overlay active" ng-if="calcreateState.insertInProgress">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        
+        <uib-progressbar max="calcreateState.selectionModel.length" value="calcreateState.insertProgressCount">
+            <span style="color:white; white-space:nowrap;"> Speichere {{calcreateState.insertProgressCount}} von {{calcreateState.selectionModel.length}} Einträgen... </span>
+        </uib-progressbar>
+    </div>
+    
 </div>

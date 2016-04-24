@@ -18,6 +18,7 @@
       "angular-google-gapi": "npm:angular-google-gapi@^1.0.0-beta.2",
       "angular-i18n": "npm:angular-i18n@^1.5.5",
       "angular-lazy": "github:matoilic/angular-lazy@^0.2.2",
+      "angular-sanitize": "npm:angular-sanitize@^1.5.5",
       "angular-translate": "github:angular-translate/bower-angular-translate@^2.9.0",
       "angular-ui-bootstrap": "npm:angular-ui-bootstrap@^1.1.2",
       "angular-ui-router": "github:angular-ui/ui-router@^0.2.18",

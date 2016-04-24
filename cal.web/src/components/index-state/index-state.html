@@ -5,20 +5,31 @@
 	</div>	
     
     <div class="row">
-		<div class="col-xs-8 col-xs-offset-2">
-			<p>Calendarizator hilft dir beim übertragen von Schichtplänen in deinem Google-Kalender.
+		<div class="col-xs-12 col-sm-6">
+			<p>
+                Calendarizator hilft dir beim Übertragen von Schichtplänen in deinem Google-Kalender.
             </p>
+            <p style="margin-top: 30px">
+                Und weil wir nicht viel mehr dazu zu sagen haben, hier ein Witz:
+            </p>
+            <p ng-bind-html="indexState.joke">
+            </p>
+            
+            <div class="row" style="margin-top: 50px">
+                <div class="col-xs-6 text-center" ng-show="!application.GData.getUser()">
+                    <a ui-sref="app.login" class="btn btn-primary btn-lg">Los gehts!</a>
+                </div>
+                <div class="col-xs-6 text-center" ng-show="application.GData.getUser()">
+                    <a ui-sref="app.calselect" class="btn btn-primary btn-lg">Los gehts!</a>
+                </div>
+            </div>
+		</div>
+        <div class="col-sm-6 hidden-xs">
+			<img src="/build/images/giraffe.jpg" class="cover-image" />
 		</div>
 	</div>
 
-	<div class="row" style="margin-top: 50px">
-		<div class="col-xs-8 col-xs-offset-2" ng-show="!application.GData.getUser()">
-            <a ui-sref="app.login" class="btn btn-primary btn-lg">Los gehts!</a>
-		</div>
-        <div class="col-xs-8 col-xs-offset-2" ng-show="application.GData.getUser()">
-            <a ui-sref="app.calselect" class="btn btn-primary btn-lg">Los gehts!</a>
-		</div>
-	</div>
+	
         
 
 </div>

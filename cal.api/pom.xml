@@ -16,6 +16,7 @@
     <gcloud.plugin.version>2.0.9.101.v20160316</gcloud.plugin.version>
     <appengine.version>1.9.34</appengine.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <file.encoding>UTF8</file.encoding>
   </properties>
   <dependencies>
     <dependency>
@@ -256,6 +257,7 @@
         <version>2.0.9.101.v20160316</version>
         <configuration>
           <set_default>true</set_default>
+          <file.encoding>UTF8</file.encoding>
         </configuration>
       </plugin>
       <plugin>

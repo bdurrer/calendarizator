@@ -1,7 +1,9 @@
 class CalendarService {
 
-    constructor(GApi) {
+    constructor(GApi, $log, $state) {
         this.GApi = GApi;
+        this.$log = $log;
+        this.$state = $state;
         this.dataStore = {
             calendarSelection: null,
             eventList: []
@@ -27,31 +29,43 @@ class CalendarService {
             showHidden: false,
             maxResults: 30
         })
-        .catch(this.handleGapiFailure);
+        .catch((response) => this.handleGapiFailure(response));
+    }
+
+    getCalendarAcl(calId) {
+        return this.GApi.executeAuth('calendar', 'acl.list', {
+            calendarId: calId,
+            showHidden: false,
+            maxResults: 30
+        })
+        .catch((response) => this.handleGapiFailure(response));
     }
 
     createCalendar(paramObj) {
         return this.GApi.executeAuth('calendar', 'calendars.insert', paramObj).catch(this.handleGapiFailure);
     }
 
-    saveAppointments(calList) {
-        return this._http
-        .post('/api/v1/Calendar/', {
-            cal: calList
+    saveAppointment(calId, event) {
+        return this.GApi.executeAuth('calendar', 'events.insert', {
+            calendarId: calId,
+            resource: event
         })
-        .then((response) => response.data, this.handleGapiFailure);
+        .catch((response) => this.handleGapiFailure(response));
     }
 
     getEventTemplate(id) {
-        return this.GApi.executeAuth('calApi', 'template.get', id).catch(this.handleGapiFailure);
+        return this.GApi.executeAuth('calApi', 'template.get', id)
+            .catch((response) => this.handleGapiFailure(response));
     }
 
     getEventTemplates() {
-        return this.GApi.executeAuth('calApi', 'template.list').catch(this.handleGapiFailure);
+        return this.GApi.executeAuth('calApi', 'template.list')
+            .catch((response) => this.handleGapiFailure(response));
     }
 
     saveEventTemplate(tmpl) {
-        return this.GApi.executeAuth('calApi', 'template.save', tmpl).catch(this.handleGapiFailure);
+        return this.GApi.executeAuth('calApi', 'template.save', tmpl)
+            .catch((response) => this.handleGapiFailure(response));
     }
 
     getCalendarSelection() {
@@ -73,5 +87,7 @@ class CalendarService {
 
 export default [
     'GApi',
+    '$log',
+    '$state',
     CalendarService
 ];

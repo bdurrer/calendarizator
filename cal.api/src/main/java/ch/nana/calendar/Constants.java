@@ -11,4 +11,6 @@ public class Constants {
 
 	public static final String EMAIL_SCOPE = "https://www.googleapis.com/auth/userinfo.email";
 	public static final String CALENDAR_SCOPE = "https://www.googleapis.com/auth/calendar";
+	
+	public static final String APP_ENGINE_AUDIENCE = "calendarizator.appspot.com";
 }

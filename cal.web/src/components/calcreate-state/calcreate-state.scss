@@ -1,5 +1,23 @@
 .calcreate-state {
-	.time{
+	
+    .info{
+        min-height: 34px;
+        margin-bottom: 15px;
+        .info-label,
+        .info-text{
+            min-height: 34px;
+            p{
+                padding: 8px;
+            }
+        }
+        .info-label{
+            font-weight: bold;
+        }
+    }
+    
+    
+    /* styles for drag and drop parts */
+    .time{
         float: right;
 		width: 100px;
 		& > span{
@@ -17,7 +35,9 @@
         text-overflow: ellipsis;
     }
     
-    .time,.date,.title{
+    .time,
+    .date,
+    .title{
         display: inline-block;
         white-space: nowrap;
         overflow: hidden;
@@ -25,6 +45,32 @@
     
     .dropzone{
         background-color: #f8f8f8;
+        padding-top: 42px;
+        padding-bottom: 42px;
+        
+        &.empty{
+            border: 1px dashed #ddd;
+            .dndPlaceholder{
+                border: none;
+            }
+        }
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    
+    .dropzone:before{
+        position: absolute;
+        top: calc(50% - 9px);
+        left: calc(50% - 32px);
+        color: #ddd;
+        background-color: #f8f8f8;
+        content: "drop zone";
+    }
+    
+    ul.templates{
+        .dndDraggingSource{
+            display: block;
+        }
     }
 	
 	.trashcan{

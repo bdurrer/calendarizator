@@ -11,10 +11,14 @@ public class EventTemplate {
 	private Short to_hour;
 	private Short to_min;
 
+	private Short orderId;
+	
 	private String text;
 	private String title;
 	private String colorBackground;
 	private String colorForeground;
+	private String colorId;
+	
 	public Key getId() {
 		return id;
 	}
@@ -69,4 +73,17 @@ public class EventTemplate {
 	public void setColorForeground(String colorForeground) {
 		this.colorForeground = colorForeground;
 	}
+	public String getColorId() {
+		return colorId;
+	}
+	public void setColorId(String colorId) {
+		this.colorId = colorId;
+	}
+	public Short getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(Short orderId) {
+		this.orderId = orderId;
+	}
+	
 }
