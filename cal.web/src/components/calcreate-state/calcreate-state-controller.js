@@ -191,7 +191,7 @@ class CalcreateStateController {
         });
 
         // this.$log.debug(JSON.stringify(eventList));
-        this.insertAllEventsInSequence(eventList).then((response) => {
+        this.insertAllEventsInSequence(eventList).then(() => {
             this.insertInProgress = false;
             this.$log.info('finished inserting events!');
         });
@@ -200,12 +200,12 @@ class CalcreateStateController {
     insertAllEventsInSequence(arr) {
         // chain the inserting
         return arr.reduce((promise, eventItem) =>
-            promise.then((result) => {
-                return this.insertEvent(result, eventItem).then(() => {
+            promise.then((result) =>
+                this.insertEvent(result, eventItem).then(() => {
                     this.$log.debug(`finished item ${this.insertProgressCount}`);
                     this.insertProgressCount++;
-                });
-            }),
+                })
+            ),
             this.$q.when([]));
     }
 

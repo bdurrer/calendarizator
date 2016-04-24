@@ -2,7 +2,8 @@
     constructor(authService, GData, $log) {
         this.authService = authService;
         this.$log = $log;
-        
+
+        /* eslint-disable max-len */
         this.jokes = [
             'Geht eine schwangere Frau in eine Bäckerei und sagt: "Ich krieg ein Brot"<br>Darauf der Bäcker: "Sachen gibt´s!',
             'Ein Mann und eine Frau sitzen zusammen im Restaurant.<br>Plötzlich bekleckert sich der Mann und sagt: "Jetzt sehe ich ja aus wie ein Schwein!"<br> Darauf die Frau: "Und bekleckert bist du auch noch!"',
@@ -17,9 +18,9 @@
             'Ein Mann geht in eine Buchhandlung und sagt: „Ich suche das Buch: Der Mann, der Herr im Haus„.<br>Die Antwort der Verkäuferin: „Märchenbücher finden Sie im 2. Stock…“',
             'In Texas wird die Leiche eines Farbigen gefunden mit 57 Einschusslöchern.<br>Meint der Sheriff: „Mein Gott, das ist ja der schlimmste Selbstmord, den ich je gesehen habe!“'
         ];
-        const i = Math.floor(Math.random() * this.jokes.length);
-        $log.debug(i + ' is the word');
-        this.joke = this.jokes[i];
+        /* eslint-enable max-len */
+        const idx = Math.floor(Math.random() * this.jokes.length);
+        this.joke = this.jokes[idx];
     }
 }
 
