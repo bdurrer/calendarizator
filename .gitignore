@@ -31,3 +31,11 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+
+# angular-lazy stuff
+.DS_Store
+.idea
+build
+jspm_packages
+test-coverage
