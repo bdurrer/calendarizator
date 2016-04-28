@@ -12,17 +12,17 @@
                 <p>Wenn du dich das erste mal anmeldest, wird sich ein Popup-Fenster öffnen, sobald du auf den Login-Button klickst. Bitte bestätige dort den Zugriff auf deinen Kalender.</p>
             </div>
             
-            <div class="col-xs-12 chrome" ng-if="loginState.browser === 'chrome'">
+            <div class="col-xs-12 chrome" ng-if="loginState.showPopupHint && loginState.browser === 'chrome'">
                 <p>Falls kein Popup kommt, hat der Popup-Blocker dies verhindert. Klicke auf das Icon in der Browserleiste (oben), um Popups vorübergehend zuzulassen.</p>
                 <img src="/build/images/popup/chrome.png" />
             </div>
             
-            <div class="col-xs-12 ie" ng-if="loginState.browser === 'ie'">
+            <div class="col-xs-12 ie" ng-if="loginState.showPopupHint && loginState.browser === 'ie'">
                 <p>Falls kein Popup kommt, hat der Popup-Blocker dies verhindert. Klicke auf das "Einmal zulassen" in der Leiste unten am Browser, um Popups vorübergehend zuzulassen.</p>
                 <img src="/build/images/popup/ie.png" />
             </div>
             
-            <div class="col-xs-12 firefox" ng-if="loginState.browser === 'firefox'">
+            <div class="col-xs-12 firefox" ng-if="loginState.showPopupHint && loginState.browser === 'firefox'">
                  <p>Falls kein Popup kommt, hat der Popup-Blocker dies verhindert. Klicke auf das Icon in der Browserleiste (oben), um Popups vorübergehend zuzulassen.</p>
                 <img src="/build/images/popup/firefox.png" />
             </div>
@@ -30,7 +30,10 @@
             
 
             <div class="col-xs-12  text-center" style="margin-top: 50px">
-                <button type="button" class="btn btn-primary btn-lg" ng-click="application.login()">Login</button>
+                <button type="button" class="btn btn-primary btn-lg" ng-click="application.authService.login()">Login</button>
+				<button type="button" class="btn btn-primary btn-lg" ng-click="application.checkauth()">checkauth</button>
+				<button type="button" class="btn btn-primary btn-lg" ng-click="application.bypass()">bypass</button>
+				
             </div>
             </div>
 		</div>

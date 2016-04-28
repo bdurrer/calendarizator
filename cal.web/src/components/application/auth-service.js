@@ -13,6 +13,12 @@ class AuthService {
 
     checkLogin() {
         const deferred = this.$q.defer();
+        this.$log.debug('attempt to check login state...');
+        /* if (true) {
+            this.$log.debug('attempt to check login state SKIPPED');
+			return deferred.promise;
+        } */
+
         if (this.GData.isLogin()) {
             deferred.resolve('User is already logged in');
             return deferred.promise;
@@ -49,6 +55,7 @@ class AuthService {
 
     login() {
         const _self = this;
+        this.$log.info('starting login attempt!');
 
         const _ifLogin = function () {
             if (_self.GData.getUserId() === null) {
@@ -60,17 +67,10 @@ class AuthService {
             }
         };
 
-        this.GAuth.checkAuth().then(() => {
-            _self.$log.info('login check successful, skipping login()');
-            _ifLogin();
-        },
+        this.GAuth.login().then(() => _ifLogin(),
         () => {
-            _self.$log.info('login over GAuth.login() now...');
-            _self.GAuth.login().then(() => _ifLogin(),
-            () => {
-                // failure-param: response
-                _self.$log.info('auth over GAuth.login() failed!');
-            });
+            // failure-param: response
+            _self.$log.info('auth over GAuth.login() failed!');
         });
     }
 

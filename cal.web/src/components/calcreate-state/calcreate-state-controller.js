@@ -194,6 +194,7 @@ class CalcreateStateController {
         this.insertAllEventsInSequence(eventList).then((response) => {
             this.insertInProgress = false;
             this.$log.info('finished inserting events!');
+            this.$log.debug(response);
         });
     }
 
