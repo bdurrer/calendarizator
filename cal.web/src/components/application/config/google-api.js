@@ -10,6 +10,7 @@ function googleApiConfig(GAuth, GApi) {
 
     GAuth.setClient(CLIENT);
     GAuth.setScope('https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar'); // default scope is only https://www.googleapis.com/auth/userinfo.email
+	GApi.load('oauth2', 'v2');
 /*
     var BASE = 'https://myGoogleAppEngine.appspot.com/_ah/api';
     GApi.load('myApiName','v1',BASE).then(function(resp) {

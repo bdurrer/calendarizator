@@ -19,6 +19,7 @@
             'In Texas wird die Leiche eines Farbigen gefunden mit 57 Einschusslöchern.<br>Meint der Sheriff: „Mein Gott, das ist ja der schlimmste Selbstmord, den ich je gesehen habe!“'
         ];
         /* eslint-enable max-len */
+
         const idx = Math.floor(Math.random() * this.jokes.length);
         this.joke = this.jokes[idx];
     }

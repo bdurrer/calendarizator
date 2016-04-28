@@ -110,22 +110,22 @@
     </pluginRepository>
   </pluginRepositories>
   <build>
-    <sourceDirectory>F:\progging\java\calendarizator\source\calendarizator\cal.api\src\main\java</sourceDirectory>
-    <scriptSourceDirectory>F:\progging\java\calendarizator\source\calendarizator\cal.api\src\main\scripts</scriptSourceDirectory>
-    <testSourceDirectory>F:\progging\java\calendarizator\source\calendarizator\cal.api\src\test\java</testSourceDirectory>
-    <outputDirectory>F:\progging\java\calendarizator\source\calendarizator\cal.api\target\cal.api-1.0-SNAPSHOT\WEB-INF\classes</outputDirectory>
-    <testOutputDirectory>F:\progging\java\calendarizator\source\calendarizator\cal.api\target\test-classes</testOutputDirectory>
+    <sourceDirectory>src\main\java</sourceDirectory>
+    <scriptSourceDirectory>src\main\scripts</scriptSourceDirectory>
+    <testSourceDirectory>src\test\java</testSourceDirectory>
+    <outputDirectory>target\cal.api-1.0-SNAPSHOT\WEB-INF\classes</outputDirectory>
+    <testOutputDirectory>target\test-classes</testOutputDirectory>
     <resources>
       <resource>
-        <directory>F:\progging\java\calendarizator\source\calendarizator\cal.api\src\main\resources</directory>
+        <directory>src\main\resources</directory>
       </resource>
     </resources>
     <testResources>
       <testResource>
-        <directory>F:\progging\java\calendarizator\source\calendarizator\cal.api\src\test\resources</directory>
+        <directory>src\test\resources</directory>
       </testResource>
     </testResources>
-    <directory>F:\progging\java\calendarizator\source\calendarizator\cal.api\target</directory>
+    <directory>target</directory>
     <finalName>cal.api-1.0-SNAPSHOT</finalName>
     <pluginManagement>
       <plugins>
@@ -382,6 +382,6 @@
     </plugins>
   </build>
   <reporting>
-    <outputDirectory>F:\progging\java\calendarizator\source\calendarizator\cal.api\target\site</outputDirectory>
+    <outputDirectory>target\site</outputDirectory>
   </reporting>
 </project>
