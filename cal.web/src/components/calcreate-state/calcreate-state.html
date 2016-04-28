@@ -14,10 +14,10 @@
     </script>
     
 	<div class="page-header">
-		<h1>{{'page.createAppointments' | translate}}</h1>
+		<h1>{{'page.createAppointments' | translate}} <span class="glyphicon glyphicon-question-sign" ng-click="calcreateState.startIntro()" id="helpbutton"></span></h1>
 	</div>	
     
-    <div class="panel panel-default">
+    <div class="panel panel-default" id="generalinfopanel">
         <div class="panel-heading">Kalenderinformationen</div>
         <div class="panel-body">
         
@@ -73,11 +73,11 @@
     
 	<div class="row">
 		<div class="col-sm-12 col-md-6">
-            <div class="panel panel-default">
+            <div class="panel panel-primary" id="panel-yourevents">
                 <div class="panel-heading"><h3 class="panel-title">Dein Terminplan</h3></div>
                 <div class="panel-body">
                     <div class="form-horizontal">
-                        <div class="form-group info">
+                        <div class="form-group info" id="startdaterow">
                             <label class="col-sm-5 control-label" for="startDate">{{'calendarsCreate.startDate' | translate}}*:</label>
                             <div class="col-sm-7">
                                 <div class="input-group">
@@ -105,9 +105,12 @@
                 
                     <p class="help">
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        Ändere die Reihenfolge, indem du Einträge mit der Maus verschiebst.
+                        <span class="text">Ändere die Reihenfolge, indem du Einträge mit der Maus verschiebst.</span>
                     </p>
-                    <ul dnd-list="calcreateState.selectionModel" dnd-drop="calcreateState.onDrop(index, item)" class="dropzone" ng-class="{empty: !calcreateState.selectionModel.length}">
+                    <ul dnd-list="calcreateState.selectionModel" dnd-drop="calcreateState.onDrop(index, item)" 
+                    class="dropzone" 
+                    ng-class="{empty: !calcreateState.selectionModel.length}" 
+                    id="yourevents-list" >
                         <li ng-repeat="item in calcreateState.selectionModel"
                             dnd-draggable="item"
                             dnd-effect-allowed="move"
@@ -129,7 +132,7 @@
                             <button type="button" class="btn btn-default " ng-click="calcreateState.clearSelectionModel()">{{'buttonClearEvents' | translate}}</button>
                         </span>
                         <span class="pull-right">
-                            <button type="button" class="btn btn-primary " ng-click="calcreateState.createEvents()">{{'buttonCreateEvents' | translate}}</button>
+                            <button type="button" class="btn btn-primary" id="saveButton" ng-click="calcreateState.createEvents()">{{'buttonCreateEvents' | translate}}</button>
                         </span>
                     </div>
                 </div>
@@ -137,12 +140,12 @@
         </div><!-- end panel-->
 		
 		<div class="col-sm-12 col-md-6">
-            <div class="panel panel-default">
+            <div class="panel panel-primary" id="panel-templates">
                 <div class="panel-heading"><h3 class="panel-title">Vorlagen</h3></div>
                 <div class="panel-body">
                     <p class="help">
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        Ziehe Elemente mit der Maus in deinen Terminplan.
+                        <span class="text">Ziehe Elemente mit der Maus in deinen Terminplan (klicken, halten und dann ziehen).</span>
                     </p>
                     <ul dnd-list="calcreateState.templates" dnd-allowed-types="[]" class="templates">
                         <li ng-repeat="item in calcreateState.templates | orderBy:'orderId'"
@@ -158,7 +161,7 @@
                 </div>
             </div><!-- end panel-->
             
-            <div class="panel panel-default">
+            <div class="panel panel-default" id="panel-trash">
                 <div class="panel-heading"><h3 class="panel-title">Abfalleimer</h3></div>
                 <div class="panel-body">
                     <p class="help">

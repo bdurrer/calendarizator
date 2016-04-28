@@ -20,6 +20,7 @@ System.config({
     "angular-cookies": "npm:angular-cookies@1.5.3",
     "angular-google-gapi": "npm:angular-google-gapi@1.0.0-beta.2",
     "angular-i18n": "npm:angular-i18n@1.5.5",
+    "angular-intro.js": "npm:angular-intro.js@2.0.1",
     "angular-lazy": "github:matoilic/angular-lazy@0.2.2",
     "angular-mocks": "github:angular/bower-angular-mocks@1.5.3",
     "angular-sanitize": "npm:angular-sanitize@1.5.5",
@@ -28,9 +29,11 @@ System.config({
     "angular-ui-router": "github:angular-ui/ui-router@0.2.18",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
+    "bdurrer/angular-google-gapi": "github:bdurrer/angular-google-gapi@0.1.3",
     "clean-css": "npm:clean-css@3.4.12",
     "core-js": "npm:core-js@1.2.6",
     "css": "github:systemjs/plugin-css@0.1.20",
+    "intro.js": "npm:intro.js@2.1.0",
     "json": "github:systemjs/plugin-json@0.1.1",
     "marceljuenemann/angular-drag-and-drop-lists": "github:marceljuenemann/angular-drag-and-drop-lists@1.4.0",
     "moment": "npm:moment@2.13.0",
@@ -155,6 +158,9 @@ System.config({
     },
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
+    },
+    "npm:intro.js@2.1.0": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2"
     },
     "npm:moment-timezone@0.5.3": {
       "moment": "npm:moment@2.13.0",

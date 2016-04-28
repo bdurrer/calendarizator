@@ -8,8 +8,8 @@
 		<div class="col-xs-12 col-md-6" style="text-align: justify;">
         <div class="row" style="margin-bottom:40px;">
 			<div class="col-xs-12">
-                <p>Diese Anwendung greift auf deinen Google-Kalender zu und benötigt daher deine Einwilligung um auf deinen Kalender gewähren.</p>
-                <p>Wenn du dich das erste mal anmeldest, wird sich ein Popup-Fenster öffnen, sobald du auf den Login-Button klickst. Bitte bestätige dort den Zugriff auf deinen Kalender.</p>
+                <p>Diese Anwendung greift auf deinen Google-Kalender zu und benötigt daher deine Einwilligung.</p>
+                <p>Beim ersten Anmelden wird sich daher ein Popup-Fenster öffnen, sobald du auf den Login-Button klickst. Bitte bestätige dort den Zugriff auf deinen Kalender.</p>
             </div>
             
             <div class="col-xs-12 chrome" ng-if="loginState.showPopupHint && loginState.browser === 'chrome'">
@@ -30,15 +30,13 @@
             
 
             <div class="col-xs-12  text-center" style="margin-top: 50px">
-                <button type="button" class="btn btn-primary btn-lg" ng-click="application.authService.login()">Login</button>
-				<button type="button" class="btn btn-primary btn-lg" ng-click="application.checkauth()">checkauth</button>
-				<button type="button" class="btn btn-primary btn-lg" ng-click="application.bypass()">bypass</button>
+                <button type="button" class="btn btn-primary btn-lg" ng-click="loginState.showPopupHint=true; application.login()">Login</button>
 				
             </div>
             </div>
 		</div>
         <div class="col-xs-12 col-md-6">
-            <img src="/build/images/friendy-cow.jpg" class="cover-image" />
+            <img src="/build/images/friendy-cow.jpg" class="cover-image" alt="Mooooh! Ich glotz dich an, einfach weil die Seite ohne mich etwas leer wäre" title="Mooooh! Ich glotz dich an, einfach weil die Seite ohne mich etwas leer wäre" />
         </div>
 	</div>
 

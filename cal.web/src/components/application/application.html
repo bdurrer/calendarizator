@@ -22,12 +22,12 @@
 </header>
 <main>
 	<div class="container">
-		<ol class="breadcrumb">
+		<ol class="breadcrumb" ng-if="application.GData.getUser()">
 			<li>Calendarizator App</li>
 			<li ui-sref-active-eq="active"><a href ui-sref="app.calselect">{{'page.selectCal' | translate}}</a></li>
 			<li ui-sref-active-eq="active"><a href ui-sref="app.calcreate">{{'page.createAppointments' | translate}}</a></li>
+            <li>Speichern & Fertig!</li>
 		</ol>
-
 		<div class="vertical-center">
 			<ui-view name="application"> state area </ui-view>
 		</div>

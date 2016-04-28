@@ -1,5 +1,11 @@
+.calendarizator .introjs-helperNumberLayer{
+    width: 29px;
+    height: 29px;
+}
+
+
 .calcreate-state {
-	
+
     .info{
         min-height: 34px;
         margin-bottom: 15px;
@@ -15,6 +21,18 @@
         }
     }
     
+    span#helpbutton {
+        font-size: 22px;
+        color: #337ab7;
+    }
+    
+    #panel-yourevents{
+        min-height: 546px;
+        
+        ul[dnd-list]{
+            min-height: 306px;
+        }
+    }
     
     /* styles for drag and drop parts */
     .time{

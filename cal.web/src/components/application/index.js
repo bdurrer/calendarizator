@@ -21,8 +21,9 @@ import 'angular-translate';
 import translationsModule from './i18n/translations';
 
 import 'marceljuenemann/angular-drag-and-drop-lists';
-// import 'angular-google-gapi/dist/angular-google-gapi';
-import 'angular-google-gapi';
+// import 'angular-google-gapi/dist/angular-google-gapi'; // debugging
+// import 'angular-google-gapi'; // minified
+import './angular-google-gapi';
 
 import defaultLocaleConfig from './config/default-locale';
 import routingConfig from './config/routing';
@@ -36,11 +37,15 @@ import applicationRoute from './application-route';
 import CalendarService from './calendar-service';
 import AuthService from './auth-service';
 
+import 'intro.js';
+import 'angular-intro.js';
+
 const dependencies = [
     'ngCookies',
     'ngSanitize',
     'ui.router',
     'ui.bootstrap',
+    'angular-intro',
     ocLazyLoad,
     'ct.ui.router.extras',
     'ct.ui.router.extras.future',

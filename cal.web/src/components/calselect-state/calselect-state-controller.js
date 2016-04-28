@@ -2,12 +2,16 @@ import moment from 'moment/moment';
 
 class CalselectStateController {
 
-    constructor(calendarService, authService, $state, $translate, $log, listItems) {
+    constructor(calendarService, authService, $state, $translate, $log, $scope, $filter, listItems) {
         this.calendarService = calendarService;
         this.authService = authService;
         this.$state = $state;
+        this.$translate = $translate;
         this.$log = $log;
-        this.list = listItems || [];
+        this.$scope = $scope;
+        this.$filter = $filter;
+
+        this.list = $filter('orderBy')(listItems, 'summary', false) || [];
         this.selectedItem = null;
         this.isLoading = false;
 
@@ -41,7 +45,7 @@ class CalselectStateController {
         this.isLoading = true;
         this.calendarService.getCalendars().then((response) => {
             this.$log.debug('fetched calendars!');
-            this.list = response.items;
+            this.list = this.$filter('orderBy')(response.items, 'summary', false);
             this.isLoading = false;
         },
         () => {
@@ -56,15 +60,18 @@ class CalselectStateController {
 
     createCalendar() {
         this.isLoading = true;
+        this.$scope.$emit('transitionRunningStart');
         this.$log.debug('creating calendar...');
         this.calendarService.createCalendar(this.newCalParams).then((response) => {
             this.$log.debug('created calendar!');
             this.loadCalendars();
+            this.$scope.$emit('transitionRunningEnd');
             this.isLoading = false;
             this.selectedItem = response;
         },
         () => {
             this.isLoading = false;
+            this.$scope.$emit('transitionRunningEnd');
         });
     }
 }
@@ -75,6 +82,8 @@ export default [
     '$state',
     '$translate',
     '$log',
+    '$scope',
+    '$filter',
     'listItems',
     CalselectStateController
 ];

@@ -3,23 +3,26 @@
 import angular from 'angular';
 import moment from 'moment/moment';
 
+import introJs from 'intro.js';
+import 'intro.js/introjs.css!';
+
 class CalcreateStateController {
 
-    constructor(calendarService, authService, $q, $translate, $scope, $log, $timeout, $state) {
+    constructor(calendarService, authService,
+                $q, $translate, $scope, $log, $timeout, $state, $cookies, selectedCalendar) {
         this.calendarService = calendarService;
         this.authService = authService;
         this.$q = $q;
         this.$translate = $translate;
+        this.$scope = $scope;
         this.$log = $log;
         this.$timeout = $timeout;
         this.$state = $state;
+        this.$cookies = $cookies;
 
         /** the previously selected calendar which we'll gonna insert events */
-        this.selectedCalendar = this.calendarService.getCalendarSelection();
-        if (!this.selectedCalendar || !this.selectedCalendar.id) {
-            $state.go('app.calselect');
-            return;
-        }
+        this.selectedCalendar = selectedCalendar;
+
 
         /** the user's list of events he's building. is backed up into memory on every change */
         this.selectionModel = this.calendarService.getEventList();
@@ -79,8 +82,13 @@ class CalcreateStateController {
             this.$log.debug('selection has changed and is updated in memory store');
             this.calendarService.setEventList(this.selectionModel);
         }, true);
-    }
 
+        // if the user has not seen the intro yet, show it!
+        const introMode = this.$cookies.get('introMode');
+        if (!introMode) {
+            this.$timeout(() => this.startIntro(), 500);
+        }
+    }
 
     /**
      * Hi server, I would like to have some data. Pleeease.
@@ -191,7 +199,7 @@ class CalcreateStateController {
         });
 
         // this.$log.debug(JSON.stringify(eventList));
-        this.insertAllEventsInSequence(eventList).then(() => {
+        this.insertAllEventsInSequence(eventList).then((response) => {
             this.insertInProgress = false;
             this.$log.info('finished inserting events!');
             this.$log.debug(response);
@@ -309,6 +317,75 @@ class CalcreateStateController {
     openDatePicker() {
         this.datePopupOpened = true;
     }
+
+    /**
+     * called in intro mode, when the user finishes the tutorial or aborts it
+     */
+    onFinishIntro() {
+        this.$log.debug('onFinishIntro...');
+        this.$cookies.put('introMode', 'finished', {
+            path: '/',
+            expires: moment().add(1,'year').toDate()
+        });
+    }
+
+    /**
+     * Starts the tutorial mode
+     */
+    startIntro() {
+        const introSteps = [
+            {
+                element: '#helpbutton',
+                intro: this.$translate.instant('intro.start').replace(/\n/g, '<br/>'),
+                position: 'bottom'
+            }, {
+                element: '#panel-templates',
+                intro: this.$translate.instant('intro.templates'),
+                position: 'top'
+            }, {
+                element: '#panel-yourevents',
+                intro: this.$translate.instant('intro.yourevents'),
+                position: 'top'
+            }, {
+                element: '#startdaterow',
+                intro: this.$translate.instant('intro.youreventdate').replace(/\n/g, '<br/>'),
+                position: 'bottom'
+            }, {
+                element: '#yourevents-list',
+                intro: this.$translate.instant('intro.youreventslist').replace(/\n/g, '<br/>'),
+                position: 'top'
+            }, {
+                element: '#panel-trash',
+                intro: this.$translate.instant('intro.trash'),
+                position: 'left'
+            }, {
+                element: '#saveButton',
+                intro: this.$translate.instant('intro.saveButton'),
+                position: 'top'
+            }, {
+                element: '#generalinfopanel',
+                intro: this.$translate.instant('intro.generalinfopanel').replace(/\n/g, '<br/>'),
+                position: 'bottom'
+            }
+        ];
+
+        this.$log.debug('starting intro');
+        const intro = introJs.introJs();
+        intro.setOptions({
+            steps: introSteps,
+            nextLabel: this.$translate.instant('intro.buttons.nextLabel'),
+            prevLabel: this.$translate.instant('intro.buttons.prevLabel'),
+            skipLabel: this.$translate.instant('intro.buttons.skipLabel'),
+            doneLabel: this.$translate.instant('intro.buttons.doneLabel'),
+            exitOnEsc: false,
+            exitOnOverlayClick: false,
+            keyboardNavigation: true,
+            disableInteraction: true
+        });
+        intro.onexit(() => this.onFinishIntro());
+        intro.oncomplete(() => this.onFinishIntro());
+        intro.start();
+    }
 }
 
 export default [
@@ -320,5 +397,7 @@ export default [
     '$log',
     '$timeout',
     '$state',
+    '$cookies',
+    'selectedCalendar',
     CalcreateStateController
 ];

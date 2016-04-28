@@ -11,15 +11,21 @@ function calselectRouteConfig($stateProvider) {
                 }
             },
             resolve: {
-                listItems(GData, calendarService, authService, $state, $q) {
+                listItems(GData, calendarService, authService, $state, $q, $timeout) {
                     if (!GData.isLogin()) {
                         const deferred = $q.defer();
                         authService.checkLogin().then(() => {
                             calendarService.getCalendars().then(
                                 (response) => deferred.resolve(response.items),
-                                () => $state.go('app.index')
+                                () => {
+                                    $timeout(() => $state.go('app.index'));
+                                    deferred.reject('failed to load calendars for calselect state. will go to index');
+                                }
                             );
-                        }, () => $state.go('app.index'));
+                        }, () => {
+                            $timeout(() => $state.go('app.index'));
+                            deferred.reject('user is not logged in. will go to index');
+                        });
                         return deferred.promise;
                     }
                     return calendarService.getCalendars().then((response) => response.items);

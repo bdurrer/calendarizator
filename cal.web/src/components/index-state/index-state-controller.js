@@ -12,7 +12,6 @@
             'Sagt die Null zur Acht: „Schicker Gürtel!“',
             '„Jetzt geht es rund!“ sagte der Papagei und sprang in den Ventilator.',
             'Fünf von vier Leuten können nicht rechnen!',
-            'Was macht ein schwuler Adler? – Er fliegt zu seinem Horst.',
             'Zwei Kannibalen verspeisen einen Clown. Sagt der eine: „Der schmeckt aber komisch.“',
             'Letztes Jahr habe ich auf dem Flug in die Türkei meinen Sitznachbarn gefragt: „Und, was haben Sie in Spanien so alles vor?“ Sein Gesicht werde ich nie vergessen!',
             'Ein Mann geht in eine Buchhandlung und sagt: „Ich suche das Buch: Der Mann, der Herr im Haus„.<br>Die Antwort der Verkäuferin: „Märchenbücher finden Sie im 2. Stock…“',

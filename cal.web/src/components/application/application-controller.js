@@ -12,6 +12,10 @@ class ApplicationController {
             this.transitionRunning = true;
         });
 
+        $rootScope.$on('transitionRunningStart', () => {
+            this.transitionRunning = true;
+        });
+
         /* $rootScope.$on('$viewContentLoading', () => {
             this.transitionRunning = false;
         }); */
@@ -25,6 +29,10 @@ class ApplicationController {
         });
 
         $rootScope.$on('$viewContentLoaded', () => {
+            this.transitionRunning = false;
+        });
+
+        $rootScope.$on('transitionRunningEnd', () => {
             this.transitionRunning = false;
         });
     }
