@@ -1,7 +1,7 @@
 import './stylesheets/application.css!';
 import 'babel/external-helpers';
 import angular from 'angular';
-import 'angular-i18n/de-CH';
+import 'angular-i18n/de-ch';
 import 'angular-cookies';
 import 'angular-sanitize';
 import 'angular-ui-router';
@@ -37,15 +37,11 @@ import applicationRoute from './application-route';
 import CalendarService from './calendar-service';
 import AuthService from './auth-service';
 
-import 'intro.js';
-import 'angular-intro.js';
-
 const dependencies = [
     'ngCookies',
     'ngSanitize',
     'ui.router',
     'ui.bootstrap',
-    'angular-intro',
     ocLazyLoad,
     'ct.ui.router.extras',
     'ct.ui.router.extras.future',

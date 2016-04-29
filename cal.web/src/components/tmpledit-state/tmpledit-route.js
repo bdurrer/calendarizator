@@ -23,7 +23,7 @@ function tmpleditRouteConfig($stateProvider, calendarService) {
                 }
             },
             resolve: {
-                tmpl: ($stateParams) => calendarService.getEventTemplate($stateParams.tmplid)
+                tmpl: ['$stateParams', ($stateParams) => calendarService.getEventTemplate($stateParams.tmplid)]
             }
         });
 }

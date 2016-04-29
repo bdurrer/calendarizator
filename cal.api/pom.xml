@@ -214,6 +214,25 @@
                     <include>WEB-INF/*.api</include>
                   </includes>
                 </resource>
+                <resource>
+                    <directory>../cal.web/target/resources</directory>
+                    <excludes>
+                        <!-- those are over 1000 files, it exceeds the appengine's limit -->
+                        <exclude>**/angular-i18n*/**</exclude>
+                        <exclude>**/example/**</exclude>
+                        <exclude>**/examples/**</exclude>
+                        <exclude>**/test/**</exclude>
+                        <exclude>**/src/**</exclude>
+                    </excludes>
+                </resource>
+                <resource>
+                    <!-- include the two files from i18n which we actually wanted -->
+                    <directory>../cal.web/target/resources</directory>
+                    <includes>
+                        <include>**/angular-i18n*/angular-locale_de*.js</include>
+                        <include>**/angular-i18n*/de*.js</include>
+                    </includes>
+                </resource>
               </webResources>
             </configuration>
           </execution>
@@ -227,6 +246,25 @@
                 <include>WEB-INF/*.discovery</include>
                 <include>WEB-INF/*.api</include>
               </includes>
+            </resource>
+            <resource>
+                <directory>../cal.web/target/resources</directory>
+                <excludes>
+                    <!-- those are over 1000 files, it exceeds the appengine's limit -->
+                    <exclude>**/angular-i18n*/**</exclude>
+                    <exclude>**/example/**</exclude>
+                    <exclude>**/examples/**</exclude>
+                    <exclude>**/test/**</exclude>
+                    <exclude>**/src/**</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <!-- include the two files from i18n which we actually wanted -->
+                <directory>../cal.web/target/resources</directory>
+                <includes>
+                    <include>**/angular-i18n*/angular-locale_de*.js</include>
+                    <include>**/angular-i18n*/de*.js</include>
+                </includes>
             </resource>
           </webResources>
         </configuration>

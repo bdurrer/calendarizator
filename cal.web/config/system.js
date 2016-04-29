@@ -20,7 +20,6 @@ System.config({
     "angular-cookies": "npm:angular-cookies@1.5.3",
     "angular-google-gapi": "npm:angular-google-gapi@1.0.0-beta.2",
     "angular-i18n": "npm:angular-i18n@1.5.5",
-    "angular-intro.js": "npm:angular-intro.js@2.0.1",
     "angular-lazy": "github:matoilic/angular-lazy@0.2.2",
     "angular-mocks": "github:angular/bower-angular-mocks@1.5.3",
     "angular-sanitize": "npm:angular-sanitize@1.5.5",

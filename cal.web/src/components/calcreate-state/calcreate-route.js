@@ -11,7 +11,7 @@ function calcreateRouteConfig($stateProvider) {
                 }
             },
             resolve: {
-                selectedCalendar(calendarService, $state, $q, $timeout) {
+                selectedCalendar: ['calendarService', '$state', '$q', '$timeout', (calendarService, $state, $q, $timeout) => {
                     const deferred = $q.defer();
                     const cal = calendarService.getCalendarSelection();
                     if (!cal || !cal.id) {
@@ -21,7 +21,7 @@ function calcreateRouteConfig($stateProvider) {
                         deferred.resolve(cal);
                     }
                     return deferred.promise;
-                }
+                }]
             }
         });
 }

@@ -1,3 +1,6 @@
 {
-  "extends": "eslint-config-angular-lazy"
+  "extends": "eslint-config-angular-lazy",
+  "rules": {
+    "max-len": ["error", 170]
+  }
 }

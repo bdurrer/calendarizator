@@ -325,7 +325,7 @@ class CalcreateStateController {
         this.$log.debug('onFinishIntro...');
         this.$cookies.put('introMode', 'finished', {
             path: '/',
-            expires: moment().add(1,'year').toDate()
+            expires: moment().add(1, 'year').toDate()
         });
     }
 

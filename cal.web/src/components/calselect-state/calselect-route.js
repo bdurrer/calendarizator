@@ -11,7 +11,7 @@ function calselectRouteConfig($stateProvider) {
                 }
             },
             resolve: {
-                listItems(GData, calendarService, authService, $state, $q, $timeout) {
+                listItems: ['GData', 'calendarService', 'authService', '$state', '$q', '$timeout', (GData, calendarService, authService, $state, $q, $timeout) => {
                     if (!GData.isLogin()) {
                         const deferred = $q.defer();
                         authService.checkLogin().then(() => {
@@ -29,7 +29,7 @@ function calselectRouteConfig($stateProvider) {
                         return deferred.promise;
                     }
                     return calendarService.getCalendars().then((response) => response.items);
-                }
+                }]
             }
         });
 }

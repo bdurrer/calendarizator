@@ -11,7 +11,7 @@ class AuthService {
         this.$log = $log;
     }
 
-    checkLogin() {
+    checkLogin(skipForwardToLogin) {
         const deferred = this.$q.defer();
         this.$log.debug('attempt to check login state...');
         /* if (true) {
@@ -32,11 +32,15 @@ class AuthService {
             },
             () => {
                 deferred.reject('Login failed');
-                this.$state.go('app.login');
+                if (skipForwardToLogin) {
+                    this.$state.go('app.login');
+                }
             });
         } else {
             deferred.reject('No login cookie available');
-            this.$state.go('app.login');
+            if (skipForwardToLogin) {
+                this.$state.go('app.login');
+            }
         }
 
         return deferred.promise;

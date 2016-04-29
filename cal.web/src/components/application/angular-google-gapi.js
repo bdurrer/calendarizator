@@ -265,6 +265,8 @@
                 setScope: function(scope) {
                     SCOPE = scope;
                 },
+                
+                load: load,
 
                 checkAuth: function(){
                     var deferred = $q.defer();
