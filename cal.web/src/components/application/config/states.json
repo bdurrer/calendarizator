@@ -34,5 +34,11 @@
     "url": "tmpledit",
     "type": "load",
     "src": "components/tmpledit-state/index"
+  },
+  {
+    "name": "app.success",
+    "url": "success",
+    "type": "load",
+    "src": "components/success-state/index"
   }
 ]

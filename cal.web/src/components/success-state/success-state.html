@@ -1,0 +1,85 @@
+﻿<div class="success-state">
+
+    <div class="page-header">
+		<h1>{{'title' | translate}}</h1>
+	</div>	
+    
+        <script type="text/ng-template" id="user.scope.html">
+        <span>{{item.scope.value}}</span>
+    </script>
+    <script type="text/ng-template" id="default.scope.html">
+        <span>{{'acl.scopeType.' + item.scope.type | translate}}</span>
+    </script>
+    <script type="text/ng-template" id="group.scope.html">
+        <span>{{'acl.scopeType.' + item.scope.type | translate}}: {{item.scope.value}}</span>
+    </script>
+    <script type="text/ng-template" id="domain.scope.html">
+        <span>{{'acl.scopeType.' + item.scope.type | translate}}: {{item.scope.value}}</span>
+    </script>
+    
+    <div class="row">
+		<div class="col-xs-12 col-md-6" style="text-align: justify;">
+            <div class="row" style="margin-bottom:40px;">
+                <div class="col-xs-12">
+                    <p>{{'youreventsadded' | translate}}</p>
+                </div>
+                <div class="col-xs-12">
+                    <p>{{'addmore' | translate}}</p>
+                    <button type="button" class="btn btn-primary" ng-click="successState.restart()">Zum Anfang</button>
+                </div>
+            </div>
+            
+            <div class="row info">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table table-striped calendarTable">
+                            <thead>
+                                <th>Kalenderfreigaben von {{successState.selectedCalendar.summary}}</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in filteredList = (successState.acl | filter:{role: '!owner'})">
+                                    <td ng-include="item.scope.type + '.scope.html'"></td>
+                                    <td>{{'calRole.' + item.role | translate}}</td>
+                                </tr>
+                                <tr ng-hide="filteredList.length">
+                                    <td>{{'acl.emptylist' | translate}}</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" name="aclUsr" id="aclUsr" ng-model="successState.aclUsr" placeholder="{{'aclAddUserPlaceholder' | translate}}" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="successState.addAcl()">{{'addacl' | translate}}</button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="alert alert-danger" role="alert" ng-show="successState.failureText">
+                        Fehler: {{successState.failureText}}
+                    </div>
+                    <div class="alert alert-success" role="alert" ng-show="successState.showSuccess">
+                        Die Berechtigungen wurden aktualisiert.
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="row" style="margin-bottom:40px;">
+                <div class="col-xs-12">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <img src="/build/images/squirrel.jpg" class="cover-image" alt="Ich glotz dich an, einfach weil die Seite ohne mich etwas leer wäre" title="Ich glotz dich an, einfach weil die Seite ohne mich etwas leer wäre" />
+        </div>
+	</div>
+
+
+
+</div>

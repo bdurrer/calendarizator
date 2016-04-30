@@ -97,7 +97,7 @@ class CalcreateStateController {
         this.isLoading = true;
         this.calendarService.getEventTemplates().then((response) => {
             this.$log.debug('fetched templates!');
-            if (response.items.length <= 0) {
+            if (!response.items || response.items.length <= 0) {
                 this.createDefaultTemplates();
             } else {
                 this.templates = response.items;
@@ -203,6 +203,7 @@ class CalcreateStateController {
             this.insertInProgress = false;
             this.$log.info('finished inserting events!');
             this.$log.debug(response);
+            this.$state.go('app.success');
         });
     }
 

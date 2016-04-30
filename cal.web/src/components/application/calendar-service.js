@@ -1,9 +1,10 @@
 class CalendarService {
 
-    constructor(GApi, $log, $state) {
+    constructor(GApi, $log, $state, $q) {
         this.GApi = GApi;
         this.$log = $log;
         this.$state = $state;
+        this.$q = $q;
         this.dataStore = {
             calendarSelection: null,
             eventList: []
@@ -18,8 +19,10 @@ class CalendarService {
         if (response && response.code === 401 && response.error) {
             if (response.error.message === 'Login Required') {
                 this.$state.go('app.login');
+                return;
             }
         }
+        return this.$q.reject(response);
     }
 
     getCalendars() {
@@ -37,6 +40,14 @@ class CalendarService {
             calendarId: calId,
             showHidden: false,
             maxResults: 30
+        })
+        .catch((response) => this.handleGapiFailure(response));
+    }
+
+    addCalendarAcl(calId, acl) {
+        return this.GApi.executeAuth('calendar', 'acl.insert', {
+            calendarId: calId,
+            resource: acl
         })
         .catch((response) => this.handleGapiFailure(response));
     }
@@ -89,5 +100,6 @@ export default [
     'GApi',
     '$log',
     '$state',
+    '$q',
     CalendarService
 ];
