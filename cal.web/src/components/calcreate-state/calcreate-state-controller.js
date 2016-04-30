@@ -90,6 +90,10 @@ class CalcreateStateController {
         }
     }
 
+    clearSelectionModel() {
+        this.selectionModel = [];
+    }
+
     /**
      * Hi server, I would like to have some data. Pleeease.
      */

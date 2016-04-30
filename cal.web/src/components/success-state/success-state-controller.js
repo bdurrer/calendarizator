@@ -38,7 +38,7 @@
         (response) => {
             this.$log.debug('failed to update acl');
             if (response.error && response.error.message) {
-                if( response.error.message === 'Invalid scope value.' ){
+                if (response.error.message === 'Invalid scope value.') {
                     this.failureText = 'Invalid email address';
                 } else {
                     this.failureText = response.error.message;
