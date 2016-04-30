@@ -45,6 +45,11 @@ class CalendarService {
         .catch((response) => this.handleGapiFailure(response));
     }
 
+    getEventColor() {
+        return this.GApi.executeAuth('calendar', 'colors.get')
+        .catch((response) => this.handleGapiFailure(response));
+    }
+
     addCalendarAcl(calId, acl) {
         return this.GApi.executeAuth('calendar', 'acl.insert', {
             calendarId: calId,

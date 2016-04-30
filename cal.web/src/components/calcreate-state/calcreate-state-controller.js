@@ -2,6 +2,7 @@
 
 import angular from 'angular';
 import moment from 'moment/moment';
+import tmplEditModalTemplate from './modal/tmpledit-modal.html!text';
 
 import introJs from 'intro.js';
 import 'intro.js/introjs.css!';
@@ -9,7 +10,7 @@ import 'intro.js/introjs.css!';
 class CalcreateStateController {
 
     constructor(calendarService, authService,
-                $q, $translate, $scope, $log, $timeout, $state, $cookies, selectedCalendar) {
+                $q, $translate, $scope, $log, $timeout, $state, $cookies, $uibModal, selectedCalendar) {
         this.calendarService = calendarService;
         this.authService = authService;
         this.$q = $q;
@@ -19,6 +20,7 @@ class CalcreateStateController {
         this.$timeout = $timeout;
         this.$state = $state;
         this.$cookies = $cookies;
+        this.$uibModal = $uibModal;
 
         /** the previously selected calendar which we'll gonna insert events */
         this.selectedCalendar = selectedCalendar;
@@ -95,6 +97,30 @@ class CalcreateStateController {
     }
 
     /**
+     * opens a modal window where the template can be edited
+     */
+    editTemplate(template) {
+        const modalInstance = this.$uibModal.open({
+            animation: true,
+            template: tmplEditModalTemplate,
+            controller: 'TemplateEditModalController',
+            controllerAs: '$ctrl',
+            bindToController: true,
+            /* size: 'lg', */
+            resolve: {
+                template: angular.copy(template),
+                calendarService: this.calendarService
+            }
+        });
+        modalInstance.result.then((response) => {
+            this.$log.debug(`editTemplate modal finished with response ${response}`);
+            this.$timeout(() => this.loadTemplates(), 2000);
+        }, () => {
+            this.$log.info('editTemplate modal dismissed');
+        });
+    }
+
+    /**
      * Hi server, I would like to have some data. Pleeease.
      */
     loadTemplates() {
@@ -127,12 +153,8 @@ class CalcreateStateController {
 
         angular.forEach(this.templates, (value) => {
             value.style = {};
-            if (value.colorBackground) {
-                value.style['background-color'] = value.colorBackground;
-            }
-            if (value.colorForeground) {
-                value.style.color = value.colorForeground;
-            }
+            value.style['background-color'] = value.colorBackground;
+            value.style.color = value.colorForeground;
 
             /* eslint-disable max-len */
             if (value.from_hour && !value.from) {
@@ -183,6 +205,7 @@ class CalcreateStateController {
             toDate.milliseconds(0);
 
             if (toDate.diff(fromDate, 'minutes') < 0) {
+                // the end time is before the beginning, so it's an overnight event
                 toDate.add(1, 'days');
             }
 
@@ -202,6 +225,13 @@ class CalcreateStateController {
                     url: 'https://calendarizator.appspot.com/'
                 }
             };
+            if (item.colorId) {
+                event.colorId = item.colorId;
+            }
+            if (item.location) {
+                event.location = item.location;
+            }
+
             eventList.push(event);
         });
 
@@ -349,7 +379,7 @@ class CalcreateStateController {
                 position: 'bottom'
             }, {
                 element: '#panel-templates',
-                intro: this.$translate.instant('intro.templates'),
+                intro: this.$translate.instant('intro.templates').replace(/\n/g, '<br/>'),
                 position: 'top'
             }, {
                 element: '#panel-yourevents',
@@ -407,6 +437,7 @@ export default [
     '$timeout',
     '$state',
     '$cookies',
+    '$uibModal',
     'selectedCalendar',
     CalcreateStateController
 ];

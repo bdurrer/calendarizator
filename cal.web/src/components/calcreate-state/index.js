@@ -6,6 +6,8 @@ import translationsModule from './i18n/translations';
 import CalcreateStateController from './calcreate-state-controller';
 import calcreateRouteConfig from './calcreate-route';
 
+import TemplateEditModalController from './modal/tmpledit-modal-controller';
+
 const dependencies = [
     'ui.router',
     'pascalprecht.translate',
@@ -15,4 +17,5 @@ const dependencies = [
 export default angular
     .module('calcreate-state-component', dependencies)
     .controller('CalcreateStateController', CalcreateStateController)
+    .controller('TemplateEditModalController', TemplateEditModalController)
     .config(calcreateRouteConfig);

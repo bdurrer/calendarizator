@@ -141,7 +141,13 @@
 		
 		<div class="col-sm-12 col-md-6">
             <div class="panel panel-primary" id="panel-templates">
-                <div class="panel-heading"><h3 class="panel-title">Vorlagen</h3></div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Vorlagen 
+                        <span class="glyphicon glyphicon-plus" ng-click="calcreateState.editTemplate()"></span>
+                        <span class="glyphicon glyphicon-refresh" ng-click="calcreateState.loadTemplates()"></span>
+                    </h3>
+                </div>
                 <div class="panel-body">
                     <p class="help">
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -155,7 +161,9 @@
                             ng-class="{'selected': calcreateState.selectedItem === item}"
                             ng-style="item.style"
                             >
-                            {{item.title}} <div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
+                            {{item.title}} 
+                            <div class="settings" ng-click="calcreateState.editTemplate(item)" ng-hide="item.title == 'Frei' || item.title == 'Freier Tag'"><span class="glyphicon glyphicon-cog"></span></div>
+                            <div class="time" ng-hide="item.title == 'Frei' || item.title == 'Freier Tag'"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
                         </li>
                     </ul>
                 </div>

@@ -220,3 +220,11 @@ footer{
     top: -46px;
     z-index: 1002;
 }
+
+.ng-submitted{
+    input.ng-invalid,
+    select.ng-invalid,
+    .uib-timepicker.ng-invalid input{
+        border-color: #a94442;
+    }
+}

@@ -1,0 +1,77 @@
+﻿<div class="tmpledit">
+    <div class="modal-header">
+        <h3 class="modal-title">
+            <span ng-show="$ctrl.isnew">{{'modal.titlenew' | translate}}</span>
+            <span ng-hide="$ctrl.isnew">{{'modal.titleedit' | translate}}</span>
+        </h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="$ctrl.form">
+        <div class="row">
+            <div class="col-xs-12" ng-show="$ctrl.showError">
+                {{'modal.saveError' | translate}}
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="mod-title">{{'modal.field.title' | translate}}*:</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" id="mod-title" name="title" required type="text" ng-model="$ctrl.template.title" placeholder="{{'modal.field.title' | translate}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="mod-text">{{'modal.field.text' | translate}}:</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" id="mod-text" name="text" type="text" ng-model="$ctrl.template.text" placeholder="{{'modal.field.text' | translate}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="mod-location">{{'modal.field.location' | translate}}:</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" id="mod-location" name="location" type="text" ng-model="$ctrl.template.location" placeholder="{{'modal.field.locationPlaceholder' | translate}}" />
+                    </div>
+                </div>
+                
+                <div class="form-group row-time">
+                    <label class="col-sm-3 control-label">{{'modal.field.time' | translate}}*:</label>
+                    <div class="col-sm-9">
+                        <span>{{'modal.field.fromTime' | translate}}</span>
+                        <uib-timepicker ng-model="$ctrl.template.fromTime" ng-required="true" ng-change="$ctrl.onTimeChange()" hour-step="1" minute-step="15" show-meridian="false"></uib-timepicker>
+                        <span>{{'modal.field.toTime' | translate}}</span>
+                        <uib-timepicker ng-model="$ctrl.template.toTime" ng-required="true" ng-change="$ctrl.onTimeChange()" hour-step="1" minute-step="15" show-meridian="false"></uib-timepicker>
+                        <span>{{'modal.field.toTimeSuffix' | translate}}</span>
+                    </div>
+                </div>
+            </div>   
+            <div class="col-xs-12" ng-show="$ctrl.showTimeInfo">
+                <div class="alert alert-info">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Info:</span>
+                    {{'modal.timeInfo' | translate}}
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group ">
+                    <label class="col-sm-3 control-label">{{'modal.field.colorId' | translate}}:</label>
+                    <div class="col-sm-9" uib-dropdown is-open="$ctrl.colorDropDownOpen">
+                        <button id="color-button" type="button" class="btn btn-default" uib-dropdown-toggle>
+                            <span class="color-box" style="{{$ctrl.template.color.style}}"> </span> 
+                            <span>{{$ctrl.template.color ? $ctrl.template.color.value.background : 'Wählen...'}}</span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="color-button">
+                            <li ng-repeat="color in $ctrl.colors track by color.id" value="{{color.id}}">
+                                <a ng-click="$ctrl.selectColor(color)"><span class="color-box" style="{{color.style}}"> </span> {{color.value.background}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" type="button" ng-click="$ctrl.cancel()">{{'modal.abort' | translate}}</button>
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.save()">{{'modal.save' | translate}}</button>
+    </div>
+</div>

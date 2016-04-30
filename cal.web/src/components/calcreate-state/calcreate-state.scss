@@ -5,7 +5,6 @@
 
 
 .calcreate-state {
-
     .info{
         min-height: 34px;
         margin-bottom: 15px;
@@ -26,6 +25,14 @@
         color: #337ab7;
     }
     
+    h1 .glyphicon,
+    h2 .glyphicon,
+    h3 .glyphicon,
+    .panel-title .glyphicon {
+        cursor: hand;
+        cursor: pointer;
+    }
+    
     #panel-yourevents{
         min-height: 546px;
         
@@ -35,6 +42,12 @@
     }
     
     /* styles for drag and drop parts */
+    .settings{
+        float: right;
+        width: 20px;
+        padding-top: 1px;
+        cursor: pointer;
+    }
     .time{
         float: right;
 		width: 100px;
@@ -55,7 +68,8 @@
     
     .time,
     .date,
-    .title{
+    .title,
+    .settings{
         display: inline-block;
         white-space: nowrap;
         overflow: hidden;
@@ -125,4 +139,22 @@
 			display: none;
 		}
 	}
+}
+
+.tmpledit{
+    .row-time{
+        height: 101px;
+        label{
+            padding-top: 40px;
+        }
+        table, span{
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+    
+    .color-box{
+        vertical-align: text-bottom;
+    }
+    
 }

@@ -3,7 +3,7 @@ function de($translateProvider) {
     $translateProvider.translations('de', {
         intro: {
             start: 'Hi!\n\n Diese kleine Einführung soll dir zeigen, wie das Ganze funktioniert. Keinen Angst, du wirst es nur ein einziges mal sehen. Ausser du klickst später nochmals auf dieses Fragezeichen.',
-            templates: 'Das sind deine Terminvorlagen.',
+            templates: 'Das sind deine Terminvorlagen. \n Mit dem Plus-Symbol in der Titelleiste kannst du neue Vorlagen erstellen. Bestehende Vorlagen können über das Zahnrad-Symbol bearbeitet werden.',
             yourevents: 'Hier stellst du deinen Plan zusammen. Schauen wir uns das mal genauer an...',
             youreventdate: 'Du musst nur das Datum des ersten Termines angeben.\n Die Daten für die nachfolgenden Termine kann die App selber berechnen. \nDer Wahnsinn, oder?',
             youreventslist: 'Klicke und halte Einträge aus den Terminvorlagen mit der Maus und ziehe sie hierhin. \n Wenn du die Maus loslässt, wird der Termin an dieser Stelle eingefügt. \n Du kannst die Termine auch umsortieren, indem du sie einfach mit der Maus nach oben/unten schiebst.',
@@ -17,6 +17,26 @@ function de($translateProvider) {
                 skipLabel: 'Intro abbrechen',
                 doneLabel: 'Fertig'
             }
+        },
+        modal: {
+            abort: 'Abbrechen',
+            save: 'Speichern',
+            titleedit: 'Vorlage bearbeiten',
+            titlenew: 'Vorlage anlegen',
+
+            field: {
+                title: 'Titel',
+                text: 'Beschreibung',
+                time: 'Dauer',
+                fromTime: 'Beginnt um',
+                toTime: 'und endet um',
+                toTimeSuffix: 'Uhr',
+                colorId: 'Farbe',
+                location: 'Ort',
+                locationPlaceholder: 'z.B. Aarau, Schweiz'
+            },
+            timeInfo: 'Der Termin wird über Mitternacht gehen und erst am nächsten Tag enden.',
+            saveError: 'Beim speichern ist ein Fehler aufgetreten. Sind deine Daten korrekt?'
         }
     });
 }

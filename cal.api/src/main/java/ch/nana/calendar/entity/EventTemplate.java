@@ -5,7 +5,7 @@ import com.google.appengine.api.datastore.Key;
 public class EventTemplate {
 
 
-	private Key id;
+	private Long id;
 	private Short from_hour;
 	private Short from_min;
 	private Short to_hour;
@@ -18,11 +18,12 @@ public class EventTemplate {
 	private String colorBackground;
 	private String colorForeground;
 	private String colorId;
+	private String location;
 	
-	public Key getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Key id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public Short getFrom_hour() {
@@ -85,5 +86,10 @@ public class EventTemplate {
 	public void setOrderId(Short orderId) {
 		this.orderId = orderId;
 	}
-	
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}	
 }
