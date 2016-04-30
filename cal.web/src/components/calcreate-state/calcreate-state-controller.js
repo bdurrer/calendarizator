@@ -98,6 +98,7 @@ class CalcreateStateController {
      * Hi server, I would like to have some data. Pleeease.
      */
     loadTemplates() {
+        this.$scope.$emit('transitionRunningStart');
         this.isLoading = true;
         this.calendarService.getEventTemplates().then((response) => {
             this.$log.debug('fetched templates!');
@@ -121,6 +122,8 @@ class CalcreateStateController {
     onTemplatesLoaded() {
         const zero = '0';
         const empty = '';
+        this.$log.debug('templates are loaded');
+        this.$scope.$emit('transitionRunningEnd');
 
         angular.forEach(this.templates, (value) => {
             value.style = {};
@@ -205,6 +208,7 @@ class CalcreateStateController {
         // this.$log.debug(JSON.stringify(eventList));
         this.insertAllEventsInSequence(eventList).then((response) => {
             this.insertInProgress = false;
+            this.onTemplatesLoaded();
             this.$log.info('finished inserting events!');
             this.$log.debug(response);
             this.$state.go('app.success');
@@ -236,7 +240,7 @@ class CalcreateStateController {
      */
     createDefaultTemplates() {
         const promises = [];
-        promises.push(this.createDefaultTemplate(1, 'Frei', null, '#FBFBFB', '#1d1d1d', null, null, null, null));
+        promises.push(this.createDefaultTemplate(1, 'Freier Tag', null, '#FBFBFB', '#1d1d1d', null, null, null, null));
         promises.push(this.createDefaultTemplate(2, 'Frühdienst', 1, '#a4bdfc', '#1d1d1d', 7, 0, 15, 38));
         promises.push(this.createDefaultTemplate(3, 'Spätdienst', 2, '#7ae7bf', '#1d1d1d', 15, 0, 23, 38));
         promises.push(this.createDefaultTemplate(4, 'Nacht', 3, '#dbadff', '#1d1d1d', 23, 0, 7, 38));

@@ -22,6 +22,7 @@ class CalendarService {
                 return;
             }
         }
+        // repeat the rejection so that other handlers can catch this, if they want.
         return this.$q.reject(response);
     }
 
