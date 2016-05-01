@@ -15,6 +15,7 @@ class TemplateEditModalController {
 
         this.template.fromTime = moment(`2016-04-07 ${this.template.from}`, 'YYYY-MM-DD HH:mm').toDate();
         this.template.toTime = moment(`2016-04-07 ${this.template.to}`, 'YYYY-MM-DD HH:mm').toDate();
+        this.showTimeInfo = (this.template.fromTime > this.template.toTime);
 
         this.colors = [];
         this.calendarService.getEventColor().then((response) => {
