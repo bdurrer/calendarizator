@@ -148,8 +148,9 @@ footer{
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#00000000', endColorstr = '#e6000000', GradientType = 1); /* IE6-9 fallback on horizontal gradient */
 
     .spinner {
+        position: relative;
+        top: calc( 50% - 50px );
         margin: 0px auto;
-        margin-top: calc( 50% - 40px );
         width: 100px;
         height: 100px;
         text-align: center;
