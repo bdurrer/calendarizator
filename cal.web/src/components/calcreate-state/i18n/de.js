@@ -6,7 +6,7 @@ function de($translateProvider) {
             templates: 'Das sind deine Terminvorlagen. \n Mit dem Plus-Symbol in der Titelleiste kannst du neue Vorlagen erstellen. Bestehende Vorlagen können über das Zahnrad-Symbol bearbeitet werden.',
             yourevents: 'Hier stellst du deinen Plan zusammen. Schauen wir uns das mal genauer an...',
             youreventdate: 'Du musst nur das Datum des ersten Termines angeben.\n Die Daten für die nachfolgenden Termine kann die App selber berechnen. \nDer Wahnsinn, oder?',
-            youreventslist: 'Klicke und halte Einträge aus den Terminvorlagen mit der Maus und ziehe sie hierhin. \n Wenn du die Maus loslässt, wird der Termin an dieser Stelle eingefügt. \n Du kannst die Termine auch umsortieren, indem du sie einfach mit der Maus nach oben/unten schiebst.',
+            youreventslist: 'Klicke und halte Einträge aus den Terminvorlagen mit der Maus und ziehe sie hierhin. \n Wenn du die Maus loslässt, wird der Termin an dieser Stelle eingefügt. \n Du kannst die Termine auch umsortieren, indem du sie einfach mit der Maus nach oben/unten schiebst.\nMit Shift+Klick auf einen Termin kannst du ihn duplizieren und so schnell Terminserien erstellen.',
             trash: 'Um ein Element in deinen Plan loszuwerden, kannst du es einfach auf den Abfalleimer ziehen.',
             saveButton: 'Wenn dein Plan komplett ist klickst du auf den dicken fetten Knopf - wo denn sonst! Damit werden die Termine in deinen Kalender übertragen.',
             generalinfopanel: 'Hier siehst du Informationen über den Kalender, den du als Ziel ausgewählt hast. \n Beispielsweise an wen du den Kalender freigegeben hast.\n\nDas wars schon, los geht´s!',

@@ -245,6 +245,9 @@ class CalcreateStateController {
         });
     }
 
+    /**
+     * processes a list of events and inserts them in sequence
+     */
     insertAllEventsInSequence(arr) {
         // chain the inserting
         return arr.reduce((promise, eventItem) =>
@@ -348,6 +351,19 @@ class CalcreateStateController {
             this.updateModel();
         }, 100);
         return true;
+    }
+
+    /**
+     * duplicates a certain event item when the user does shift+click it
+     */
+    duplicateItem($index, item, $event) {
+        if ($event.shiftKey || $event.ctrlKey || $event.altKey) {
+            this.$log.debug(`shift + clicked item ${$index}`);
+            this.selectionModelIdCounter++;
+            item = angular.copy(item);
+            item.listid = this.selectionModelIdCounter;
+            this.selectionModel.splice($index, 0, item);
+        }
     }
 
     /**

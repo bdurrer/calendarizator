@@ -105,7 +105,7 @@
                 
                     <p class="help">
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        <span class="text">Ändere die Reihenfolge, indem du Einträge mit der Maus verschiebst.</span>
+                        <span class="text">Ändere die Reihenfolge, indem du Einträge mit der Maus verschiebst.<br/>Dupliziere Elemente mit <code>Shift+Klick</code></span>
                     </p>
                     <ul dnd-list="calcreateState.selectionModel" dnd-drop="calcreateState.onDrop(index, item)" 
                     class="dropzone" 
@@ -118,6 +118,7 @@
                             dnd-selected="calcreateState.selectedItem = item"
                             ng-class="{'selected': calcreateState.selectedItem === item}"
                             ng-style="item.style"
+                            ng-click="calcreateState.duplicateItem($index, item, $event)"
                             >
                             <div class="date">{{item.date | moment:'ddd DD. MMMM YY'}}</div> <div class="title">{{item.title}}</div><div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
                         </li>
