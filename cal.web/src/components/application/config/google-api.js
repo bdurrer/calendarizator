@@ -2,8 +2,10 @@
 
 function googleApiConfig(GAuth, GApi, $log) {
     const CLIENT = '948709330298-230d1pmktbgcmcdd2urhml3qt23nff7i.apps.googleusercontent.com';
-    // const BASE = 'https://calendarizator.appspot.com/_ah/api';
-    const BASE = 'http://localhost:8080/_ah/api';
+    const BASE = 'https://calendarizator.appspot.com/_ah/api';
+    // const BASE = 'http://localhost:8080/_ah/api';
+    // const BASE = '/_ah/api';
+    
     GApi.load('calApi', 'v1', BASE);
 
     GApi.load('calendar', 'v3'); // for google api (https://developers.google.com/apis-explorer/)
