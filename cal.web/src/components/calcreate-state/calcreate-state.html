@@ -89,7 +89,6 @@
                                         ng-model="calcreateState.startDateExternal"
                                         is-open="calcreateState.datePopupOpened" 
                                         datepicker-options="calcreateState.dateOptions" 
-                                        ng-model-options="calcreateState.startDateOptions"
                                         ng-required="true" 
                                         close-text="Close" 
                                         alt-input-formats="calcreateState.dateAltInputFormats"
@@ -122,7 +121,7 @@
                             dnd-draggable="item"
                             dnd-effect-allowed="move"
                             dnd-moved="calcreateState.selectionModel.splice($index, 1)"
-                            dnd-horizontal-list="true"
+                            dnd-horizontal-list="calcreateState.horizontalMode"
                             dnd-selected="calcreateState.selectedItem = item"
                             ng-class="{'selected': calcreateState.selectedItem === item, 'placeholder': item.type === 'placeholder'}"
                             ng-style="item.style"
@@ -147,6 +146,9 @@
                 </div>
             </div>
         </div><!-- end panel-->
+        
+    </div>
+    <div class="row">
 		
 		<div class="col-sm-12 col-md-6">
             <div class="panel panel-primary" id="panel-templates">
@@ -177,7 +179,9 @@
                     </ul>
                 </div>
             </div><!-- end panel-->
-            
+        </div>
+        
+        <div class="col-sm-12 col-md-6">    
             <div class="panel panel-default" id="panel-trash">
                 <div class="panel-heading"><h3 class="panel-title">Abfalleimer</h3></div>
                 <div class="panel-body">

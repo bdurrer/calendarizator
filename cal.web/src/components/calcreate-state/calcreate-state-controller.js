@@ -58,6 +58,8 @@ class CalcreateStateController {
         this.startDate = moment().subtract(1, 'day').toDate();
         this.startDateExternal = moment().toDate();
 
+        this.horizontalMode = true;
+
         /** make sure date and idCounter are set on every event item */
         this.updateModel();
 
@@ -76,13 +78,13 @@ class CalcreateStateController {
 
         // we need to update the dates on ally items when the user changes the start date
         $scope.$watch(() => this.startDateExternal, () => {
-            this.$log.debug('startDateExternal has changed');
+            // this.$log.debug('startDateExternal has changed');
             this.updateModel();
         });
 
         // watch for changes and store them, so that the user can navigate safely
         $scope.$watch(() => this.selectionModel, () => {
-            this.$log.debug('selection has changed and is updated in memory store');
+            // this.$log.debug('selection has changed and is updated in memory store');
             this.calendarService.setEventList(this.selectionModel);
         }, true);
 
