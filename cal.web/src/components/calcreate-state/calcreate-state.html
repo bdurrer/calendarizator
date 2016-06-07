@@ -72,7 +72,7 @@
         
     
 	<div class="row">
-		<div class="col-sm-12 col-md-6">
+		<div class="col-sm-12 col-md-12">
             <div class="panel panel-primary" id="panel-yourevents">
                 <div class="panel-heading"><h3 class="panel-title">Dein Terminplan</h3></div>
                 <div class="panel-body">
@@ -86,7 +86,7 @@
                                         id="startDate" 
                                         name="startDate"
                                         uib-datepicker-popup="{{'datepicker.format' | translate}}" 
-                                        ng-model="calcreateState.startDate"
+                                        ng-model="calcreateState.startDateExternal"
                                         is-open="calcreateState.datePopupOpened" 
                                         datepicker-options="calcreateState.dateOptions" 
                                         ng-model-options="calcreateState.startDateOptions"
@@ -107,27 +107,35 @@
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         <span class="text">Ändere die Reihenfolge, indem du Einträge mit der Maus verschiebst.<br/>Dupliziere Elemente mit <code>Shift+Klick</code></span>
                     </p>
-                    <ul dnd-list="calcreateState.selectionModel" dnd-drop="calcreateState.onDrop(index, item)" 
-                    class="dropzone" 
-                    ng-class="{empty: !calcreateState.selectionModel.length}" 
-                    id="yourevents-list" >
+                    <ul class="days">
+                        <li ng-repeat="n in [1,2,3,4,5,6,7] track by $index" class="weekdays">
+                            {{'weekdays.n' + n | translate}}
+                        </li>
+                    </ul>
+                    <ul dnd-list="calcreateState.selectionModel" 
+                        dnd-drop="calcreateState.onDrop(index, item)" 
+                        dnd-dragover="calcreateState.onDragOver(event, index, type, external)"
+                        ng-class="{empty: !calcreateState.selectionModel.length}"
+                        class="dropzone" 
+						id="yourevents-list">
                         <li ng-repeat="item in calcreateState.selectionModel"
                             dnd-draggable="item"
                             dnd-effect-allowed="move"
                             dnd-moved="calcreateState.selectionModel.splice($index, 1)"
+                            dnd-horizontal-list="true"
                             dnd-selected="calcreateState.selectedItem = item"
-                            ng-class="{'selected': calcreateState.selectedItem === item}"
+                            ng-class="{'selected': calcreateState.selectedItem === item, 'placeholder': item.type === 'placeholder'}"
                             ng-style="item.style"
                             ng-click="calcreateState.duplicateItem($index, item, $event)"
+                            dnd-disable-if="item.fixed === true"
+                            
                             >
                             <div class="date">{{item.date | moment:'ddd DD. MMMM YY'}}</div> <div class="title">{{item.title}}</div><div class="time"><span>{{item.from}}</span> - <span>{{item.to}}</span></div>
                         </li>
                         <li class="dndPlaceholder">
                             Element hier einreihen
                         </li>
-                    </ul>
-                    
-
+                    </ul>                   
                     <div class="btn-row">
                         <span>
                             <button type="button" class="btn btn-default " ng-click="calcreateState.clearSelectionModel()">{{'buttonClearEvents' | translate}}</button>

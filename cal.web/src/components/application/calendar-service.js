@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 class CalendarService {
 
     constructor(GApi, $log, $state, $q) {
@@ -5,9 +7,18 @@ class CalendarService {
         this.$log = $log;
         this.$state = $state;
         this.$q = $q;
+
+        this.eventListDefault = [{
+            title: '',
+            from: '',
+            to: '',
+            type: 'placeholder',
+            style: {},
+            fixed: true
+        }];
         this.dataStore = {
             calendarSelection: null,
-            eventList: []
+            eventList: angular.extend([], this.eventListDefault)
         };
     }
 
@@ -99,6 +110,11 @@ class CalendarService {
 
     setEventList(cal) {
         this.dataStore.eventList = cal;
+    }
+
+    resetEventList() {
+        this.dataStore.eventList = angular.extend([], this.eventListDefault);
+        return this.getEventList();
     }
 }
 

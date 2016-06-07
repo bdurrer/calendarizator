@@ -16,44 +16,44 @@ System.config({
   buildCSS: true,
 
   map: {
-    "angular": "github:angular/bower-angular@1.5.3",
-    "angular-cookies": "npm:angular-cookies@1.5.3",
-    "angular-google-gapi": "npm:angular-google-gapi@1.0.0-beta.2",
-    "angular-i18n": "npm:angular-i18n@1.5.5",
+    "angular": "github:angular/bower-angular@1.5.6",
+    "angular-cookies": "npm:angular-cookies@1.5.6",
+    "angular-google-gapi": "npm:angular-google-gapi@1.0.0",
+    "angular-i18n": "npm:angular-i18n@1.5.6",
     "angular-lazy": "github:matoilic/angular-lazy@0.2.2",
-    "angular-mocks": "github:angular/bower-angular-mocks@1.5.3",
-    "angular-sanitize": "npm:angular-sanitize@1.5.5",
+    "angular-mocks": "github:angular/bower-angular-mocks@1.5.6",
+    "angular-sanitize": "npm:angular-sanitize@1.5.6",
     "angular-translate": "github:angular-translate/bower-angular-translate@2.11.0",
-    "angular-ui-bootstrap": "npm:angular-ui-bootstrap@1.3.1",
+    "angular-ui-bootstrap": "npm:angular-ui-bootstrap@1.3.3",
     "angular-ui-router": "github:angular-ui/ui-router@0.2.18",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
+    "clean-css": "npm:clean-css@3.4.14",
     "bdurrer/angular-google-gapi": "github:bdurrer/angular-google-gapi@0.1.3",
-    "clean-css": "npm:clean-css@3.4.12",
     "core-js": "npm:core-js@1.2.6",
-    "css": "github:systemjs/plugin-css@0.1.20",
+    "css": "github:systemjs/plugin-css@0.1.22",
     "intro.js": "npm:intro.js@2.1.0",
-    "json": "github:systemjs/plugin-json@0.1.1",
+    "json": "github:systemjs/plugin-json@0.1.2",
     "marceljuenemann/angular-drag-and-drop-lists": "github:marceljuenemann/angular-drag-and-drop-lists@1.4.0",
     "moment": "npm:moment@2.13.0",
-    "moment-timezone": "npm:moment-timezone@0.5.3",
+    "moment-timezone": "npm:moment-timezone@0.5.4",
     "oclazyload": "github:ocombe/oclazyload@1.0.9",
     "text": "github:systemjs/plugin-text@0.0.2",
     "ui-router-extras": "github:christopherthielen/ui-router-extras@0.0.14",
     "github:angular-translate/bower-angular-translate@2.11.0": {
-      "angular": "github:angular/bower-angular@1.5.3"
+      "angular": "github:angular/bower-angular@1.5.6"
     },
     "github:angular-ui/ui-router@0.2.18": {
-      "angular": "github:angular/bower-angular@1.5.3"
+      "angular": "github:angular/bower-angular@1.5.6"
     },
-    "github:angular/bower-angular-mocks@1.5.3": {
-      "angular": "github:angular/bower-angular@1.5.3"
+    "github:angular/bower-angular-mocks@1.5.6": {
+      "angular": "github:angular/bower-angular@1.5.6"
     },
     "github:christopherthielen/ui-router-extras@0.0.14": {
-      "angular": "github:angular/bower-angular@1.5.3"
+      "angular": "github:angular/bower-angular@1.5.6"
     },
     "github:jspm/nodelibs-assert@0.1.0": {
-      "assert": "npm:assert@1.3.0"
+      "assert": "npm:assert@1.4.1"
     },
     "github:jspm/nodelibs-buffer@0.1.0": {
       "buffer": "npm:buffer@3.6.0"
@@ -79,7 +79,7 @@ System.config({
       "path-browserify": "npm:path-browserify@0.0.0"
     },
     "github:jspm/nodelibs-process@0.1.2": {
-      "process": "npm:process@0.11.2"
+      "process": "npm:process@0.11.3"
     },
     "github:jspm/nodelibs-stream@0.1.0": {
       "stream-browserify": "npm:stream-browserify@1.0.0"
@@ -91,7 +91,7 @@ System.config({
       "util": "npm:util@0.10.3"
     },
     "github:matoilic/angular-lazy@0.2.2": {
-      "angular": "github:angular/bower-angular@1.5.3"
+      "angular": "github:angular/bower-angular@1.5.6"
     },
     "npm:amdefine@1.0.0": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
@@ -99,13 +99,13 @@ System.config({
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:angular-google-gapi@1.0.0-beta.2": {
-      "angular": "npm:angular@1.5.3"
+    "npm:angular-google-gapi@1.0.0": {
+      "angular": "npm:angular@1.5.6"
     },
-    "npm:angular-sanitize@1.5.5": {
-      "process": "github:jspm/nodelibs-process@0.1.2"
-    },
-    "npm:assert@1.3.0": {
+    "npm:assert@1.4.1": {
+      "assert": "github:jspm/nodelibs-assert@0.1.0",
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
       "util": "npm:util@0.10.3"
     },
     "npm:babel-runtime@5.8.38": {
@@ -119,7 +119,7 @@ System.config({
       "isarray": "npm:isarray@1.0.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:clean-css@3.4.12": {
+    "npm:clean-css@3.4.14": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "commander": "npm:commander@2.8.1",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
@@ -144,7 +144,7 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
-      "systemjs-json": "github:systemjs/plugin-json@0.1.1"
+      "systemjs-json": "github:systemjs/plugin-json@0.1.2"
     },
     "npm:core-util-is@1.0.2": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0"
@@ -161,9 +161,9 @@ System.config({
     "npm:intro.js@2.1.0": {
       "fs": "github:jspm/nodelibs-fs@0.1.2"
     },
-    "npm:moment-timezone@0.5.3": {
+    "npm:moment-timezone@0.5.4": {
       "moment": "npm:moment@2.13.0",
-      "systemjs-json": "github:systemjs/plugin-json@0.1.1"
+      "systemjs-json": "github:systemjs/plugin-json@0.1.2"
     },
     "npm:os-browserify@0.1.2": {
       "os": "github:jspm/nodelibs-os@0.1.0"
@@ -171,13 +171,13 @@ System.config({
     "npm:path-browserify@0.0.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:process@0.11.2": {
+    "npm:process@0.11.3": {
       "assert": "github:jspm/nodelibs-assert@0.1.0"
     },
     "npm:punycode@1.3.2": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:readable-stream@1.1.13": {
+    "npm:readable-stream@1.1.14": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "core-util-is": "npm:core-util-is@1.0.2",
       "events": "github:jspm/nodelibs-events@0.1.1",
@@ -194,7 +194,7 @@ System.config({
     "npm:stream-browserify@1.0.0": {
       "events": "github:jspm/nodelibs-events@0.1.1",
       "inherits": "npm:inherits@2.0.1",
-      "readable-stream": "npm:readable-stream@1.1.13"
+      "readable-stream": "npm:readable-stream@1.1.14"
     },
     "npm:string_decoder@0.10.31": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0"

@@ -55,7 +55,8 @@ class CalcreateStateController {
         moment.locale($translate.use());
 
         /** the date of the first event. can be changed by the user */
-        this.startDate = moment().toDate();
+        this.startDate = moment().subtract(1, 'day').toDate();
+        this.startDateExternal = moment().toDate();
 
         /** make sure date and idCounter are set on every event item */
         this.updateModel();
@@ -74,8 +75,8 @@ class CalcreateStateController {
         };
 
         // we need to update the dates on ally items when the user changes the start date
-        $scope.$watch(() => this.startDate, () => {
-            this.$log.debug('startDate has changed');
+        $scope.$watch(() => this.startDateExternal, () => {
+            this.$log.debug('startDateExternal has changed');
             this.updateModel();
         });
 
@@ -90,10 +91,6 @@ class CalcreateStateController {
         if (!introMode) {
             this.$timeout(() => this.startIntro(), 500);
         }
-    }
-
-    clearSelectionModel() {
-        this.selectionModel = [];
     }
 
     /**
@@ -303,20 +300,54 @@ class CalcreateStateController {
     }
 
     /**
+     * Replaces the current selection model with the default data.
+     * updateModel is called implicitly by the listener, because the model changed.
+     */
+    clearSelectionModel() {
+        this.selectionModel = this.calendarService.resetEventList();
+    }
+
+
+    /**
      * updates all items in the selectionModel, so that the dates are in sequence
      * and every item has an ID (to make ng-repeat happy).
      */
     updateModel() {
+        this.startDate = moment(this.startDateExternal).subtract(1, 'day').toDate();
         let currentDate = moment(this.startDate).clone();
 
-        angular.forEach(this.selectionModel, (item) => {
+        angular.forEach(this.selectionModel, (item, $index) => {
             item.date = currentDate;
             currentDate = currentDate.clone().add(1, 'day');
             if (!item.listid) {
                 this.selectionModelIdCounter++;
                 item.listid = this.selectionModelIdCounter;
             }
+
+            delete item.style.display;
+
+            if ($index === 0) {
+                // the first element is the placeholder and is read-only for the user.
+                // It's a 'free time' event to align the real data with the days of week.
+                const placeholderCount = moment(this.startDateExternal).isoWeekday() - 1;
+                const boxWidth = (placeholderCount * 145) + ((placeholderCount - 1) * 10);
+                item.style.width = `${boxWidth}px`;
+                if (placeholderCount === 0) {
+                    item.style.display = 'none';
+                }
+            } else {
+                // delete item.style['margin-left'];
+                delete item.style.width;
+            }
         });
+    }
+
+    /**
+     * Event handler, called whenever an item is dragged over the selectionModel list
+     */
+    onDragOver(eventObj, index /* , type, external */) {
+        // disable dropping at index zero because here the mighty placeholder for date shifting lives
+        return index !== 0;
     }
 
     /**

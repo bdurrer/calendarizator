@@ -55,6 +55,16 @@ function de($translateProvider) {
         datepicker: {
             format: 'dd.MM.yyyy',
             altInputFormats: 'dd-MMMM-yyyy;yyyy/MM/dd;dd.MM.yyyy;shortDate'
+        },
+
+        weekdays: {
+            n1: 'Montag',
+            n2: 'Dienstag',
+            n3: 'Mittwoch',
+            n4: 'Donnerstag',
+            n5: 'Freitag',
+            n6: 'Samstag',
+            n7: 'Sonntag'
         }
     });
 }
