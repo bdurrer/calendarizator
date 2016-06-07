@@ -87,6 +87,20 @@ class CalcreateStateController {
             // this.$log.debug('selection has changed and is updated in memory store');
             this.calendarService.setEventList(this.selectionModel);
         }, true);
+        
+        this.pageSize = 3;
+        this.pageClass = 'lg';
+
+        $scope.$on('bp-changed', (eventObj, sizing) => {
+            this.$log.info('calcreate bp changed size to ' + sizing.size + ' from ' + sizing.oldSize);
+            this.pageSize = sizing.size;
+            this.pageClass = sizing.sizeName;
+            this.horizontalMode = (this.pageSize >= 2);
+            this.updateModel();
+        });
+        
+        // let the responsive-directive know that we want an immediate update event
+        $scope.$emit('bp-ping');
 
         // if the user has not seen the intro yet, show it!
         const introMode = this.$cookies.get('introMode');
@@ -272,10 +286,10 @@ class CalcreateStateController {
      */
     createDefaultTemplates() {
         const promises = [];
-        promises.push(this.createDefaultTemplate(1, 'Freier Tag', null, '#FBFBFB', '#1d1d1d', null, null, null, null));
-        promises.push(this.createDefaultTemplate(2, 'Frühdienst', 1, '#a4bdfc', '#1d1d1d', 7, 0, 15, 38));
-        promises.push(this.createDefaultTemplate(3, 'Spätdienst', 2, '#7ae7bf', '#1d1d1d', 15, 0, 23, 38));
-        promises.push(this.createDefaultTemplate(4, 'Nacht', 3, '#dbadff', '#1d1d1d', 23, 0, 7, 38));
+        promises.push(this.createDefaultTemplate(1, 'Freier Tag', null, '#FBFBFB', '#1d1d1d', null, null, null, null, 'free'));
+        promises.push(this.createDefaultTemplate(2, 'Frühdienst', 1, '#a4bdfc', '#1d1d1d', 7, 0, 15, 38, 'event'));
+        promises.push(this.createDefaultTemplate(3, 'Spätdienst', 2, '#7ae7bf', '#1d1d1d', 15, 0, 23, 38, 'event'));
+        promises.push(this.createDefaultTemplate(4, 'Nacht', 3, '#dbadff', '#1d1d1d', 23, 0, 7, 38, 'event'));
         this.$q.all(promises).then(() => {
             this.$timeout(this.loadTemplates(), 2000);
         });
@@ -284,7 +298,7 @@ class CalcreateStateController {
     /**
      * initializes the templates of this user with the default templates
      */
-    createDefaultTemplate(orderId, title, colorId, colorBackground, colorForeground, fromHour, fromMin, toHour, toMin) {
+    createDefaultTemplate(orderId, title, colorId, colorBackground, colorForeground, fromHour, fromMin, toHour, toMin, type) {
         return this.calendarService.saveEventTemplate({
             orderId,
             title,
@@ -294,7 +308,8 @@ class CalcreateStateController {
             from_hour: fromHour,
             from_min: fromMin,
             to_hour: toHour,
-            to_min: toMin
+            to_min: toMin,
+            type
         }).then((response) => {
             this.$log.debug(`saved default tmpl ${title}!`);
             return response;
@@ -332,7 +347,8 @@ class CalcreateStateController {
                 // the first element is the placeholder and is read-only for the user.
                 // It's a 'free time' event to align the real data with the days of week.
                 const placeholderCount = moment(this.startDateExternal).isoWeekday() - 1;
-                const boxWidth = (placeholderCount * 145) + ((placeholderCount - 1) * 10);
+                const colWidth = this.pageClass === 'md' ? 115 : 145;
+                const boxWidth = (placeholderCount * colWidth) + ((placeholderCount - 1) * 10);
                 item.style.width = `${boxWidth}px`;
                 if (placeholderCount === 0) {
                     item.style.display = 'none';
@@ -445,7 +461,7 @@ class CalcreateStateController {
             }, {
                 element: '#panel-trash',
                 intro: this.$translate.instant('intro.trash'),
-                position: 'left'
+                position: 'top'
             }, {
                 element: '#saveButton',
                 intro: this.$translate.instant('intro.saveButton'),

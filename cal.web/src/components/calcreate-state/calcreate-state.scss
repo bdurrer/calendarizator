@@ -39,6 +39,58 @@
         ul[dnd-list]{
             min-height: 306px;
         }
+        
+        &.md{
+            .dropzone{
+                li{
+                    width: 115px;
+                    padding: 10px 5px;
+                }
+            }
+            
+            .days{
+                li{
+                    width: 115px;
+                    text-align: center;
+                }
+            }
+        }
+        
+        &.sm,
+        &.xs{
+            /* in this mode, we'll fall back to 100% width */
+            .placeholder,
+            .days{
+                display: none;
+            }
+            .time{
+                display: inline-block;
+                float: right;
+                width: 100px;
+                & > span{
+                    text-align: right;
+                }
+            }
+            .date{
+                display: inline-block;
+                min-width: 150px;
+            }
+    
+            .title{
+                display: inline-block;
+                width: calc(100% - 270px);
+            }
+            
+            .dropzone{
+                border-top-style: dashed;
+                padding-top: 42px;
+                
+                li{
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        }
     }
     
     /* styles for drag and drop parts */
@@ -49,20 +101,15 @@
         cursor: pointer;
     }
     .time{
-        /*float: right;*/
-		/*width: 100px;*/
 		& > span{
 			display: inline-block;
 			min-width: 40px;
-			/*text-align: right;*/
 		}
 	}
     .date{
-        /*min-width: 150px;*/
     }
     
     .title{
-        /*width: calc(100% - 270px);*/
         text-overflow: ellipsis;
     }
     
@@ -111,7 +158,7 @@
         overflow-x: hidden;
         
         border: 1px dashed #ddd;
-        border-top: none;
+        border-top-style: none;
         
         
         &.empty{
@@ -135,7 +182,7 @@
                 
                 div{
                     display: none;
-    }
+                }
             }
         }
     

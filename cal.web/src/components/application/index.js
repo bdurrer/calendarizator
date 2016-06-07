@@ -37,6 +37,8 @@ import applicationRoute from './application-route';
 import CalendarService from './calendar-service';
 import AuthService from './auth-service';
 
+import bootstrapBreakpointModule from './bootstrap-breakpoint-directive';
+
 const dependencies = [
     'ngCookies',
     'ngSanitize',
@@ -49,6 +51,7 @@ const dependencies = [
     'pascalprecht.translate',
     'angular-google-gapi',
     'dndLists',
+    bootstrapBreakpointModule.name,
     translationsModule.name
 ];
 

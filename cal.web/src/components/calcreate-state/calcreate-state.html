@@ -18,7 +18,7 @@
 	</div>	
     
     <div class="panel panel-default" id="generalinfopanel">
-        <div class="panel-heading">Kalenderinformationen</div>
+        <div class="panel-heading">Kalenderinformationen {{application.responsiveState}}</div>
         <div class="panel-body">
         
             <div class="form-horizontal">
@@ -73,7 +73,7 @@
     
 	<div class="row">
 		<div class="col-sm-12 col-md-12">
-            <div class="panel panel-primary" id="panel-yourevents">
+            <div class="panel panel-primary" id="panel-yourevents" ng-class="calcreateState.pageClass">
                 <div class="panel-heading"><h3 class="panel-title">Dein Terminplan</h3></div>
                 <div class="panel-body">
                     <div class="form-horizontal">
