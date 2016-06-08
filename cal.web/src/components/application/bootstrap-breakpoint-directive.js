@@ -45,19 +45,27 @@ export default angular
                         }
                     });
                 };
-                
-                // this enables other components to enforce an bp-changed event.
-                const unregisterFn = $rootScope.$on('bp-ping', () => {
-                    scope.broadcastChange(scope.currentVal);
-                });
-                scope.$on('$destroy', unregisterFn);
 
-                angular.element($window).bind('resize', () => {
+                // debounced resize handler
+                scope.onResize = function() {
                     $timeout.cancel(t);
                     t = $timeout(() => {
                         scope.updateDisplayMode();
                     }, 300); // check if resize event is still happening
+                };
+                angular.element($window).on('resize', scope.onResize);
+
+                // send an event so that other components can enforce an bp-changed event.
+                const unregisterFn = $rootScope.$on('bp-ping', () => {
+                    scope.broadcastChange(scope.currentVal);
                 });
+                
+                // unbind the event handlers when this component is destroyed
+                scope.onDestroy = function() {
+                    angular.element($window).off('resize', scope.onResize);
+                    unregisterFn();
+                }
+                scope.$on('$destroy', onDestroy);
 
                 scope.updateDisplayMode(); // fire it at least once
             }
