@@ -4,70 +4,88 @@ const dependencies = [];
 
 export default angular
     .module('bootstrap-breakpoint', dependencies)
-    .directive('bpListener', ['$window', '$timeout', '$rootScope', function ($window, $timeout, $rootScope) {
+    .directive('bpListener', ['$window', '$timeout', '$rootScope', '$log', function ($window, $timeout, $rootScope, $log) {
         return {
             restrict: 'A',
-            scope: { },
+            scope: {
+                bpListener: '=?'
+            },
             template: '<div class="visible-xs"></div><div class="visible-sm"></div>' +
-            '<div class="visible-md"></div><div class="visible-lg"></div>',
-            link(scope, iElement) {
+                      '<div class="visible-md"></div><div class="visible-lg"></div>',
+            link(directiveScope, iElement) {
+                const scope = directiveScope;
                 let t;
-                scope.markers = iElement.find('div');
-                scope.currentVal = null;
-                
+                const markers = iElement.find('div');
+                let currentVal = null;
+
+                // map the bootstrap size names to numbers, to make comparison easier
                 const sizeMap = {
                     lg: 3,
                     md: 2,
                     sm: 1,
                     xs: 0
                 };
-                
-                scope.broadcastChange = function(newValue){
-                    const oldValue = scope.currentVal;
-                    scope.currentVal = newValue;
-                    
+
+                /**
+                 * function to send an event when the size value changes
+                 */
+                function broadcastChange(newValue) {
+                    const oldValue = currentVal;
+                    currentVal = newValue;
+
                     const paramOldVal = oldValue === null ? null : oldValue.substring(8);
-                    const paramNewVal = scope.currentVal.substring(8)
-                    $rootScope.$broadcast('bp-changed', {
+                    const paramNewVal = currentVal.substring(8);
+                    const valueObj = {
                         sizeName: paramNewVal,
                         size: sizeMap[paramNewVal],
                         oldSizeName: paramOldVal,
                         oldSize: sizeMap[paramOldVal]
-                    });
+                    };
+                    scope.bpListener = valueObj;
+                    $rootScope.$broadcast('bp-changed', valueObj);
                 }
 
-                scope.updateDisplayMode = function () {
-                    angular.forEach(scope.markers, (elem) => {
+                /**
+                 * function to update the internal state value and trigger an event, when the value actually changes
+                 */
+                function updateDisplayMode(force) {
+                    angular.forEach(markers, (elem) => {
                         if (elem.offsetParent !== null) {
-                            if (elem.className !== scope.currentVal) {
-                                scope.broadcastChange(elem.className);
+                            if (force || elem.className !== currentVal) {
+                                broadcastChange(elem.className);
                             }
                         }
                     });
-                };
+                }
 
-                // debounced resize handler
-                scope.onResize = function() {
+                /**
+                 * event listener for window.resize.
+                 * This is debounced by 300ms to prevent event-spam
+                 */
+                function onResize() {
                     $timeout.cancel(t);
                     t = $timeout(() => {
-                        scope.updateDisplayMode();
+                        updateDisplayMode(false);
                     }, 300); // check if resize event is still happening
-                };
-                angular.element($window).on('resize', scope.onResize);
+                }
+                angular.element($window).on('resize', onResize);
 
                 // send an event so that other components can enforce an bp-changed event.
+                /*
                 const unregisterFn = $rootScope.$on('bp-ping', () => {
-                    scope.broadcastChange(scope.currentVal);
+                    broadcastChange(currentVal);
                 });
-                
+                */
+
                 // unbind the event handlers when this component is destroyed
-                scope.onDestroy = function() {
-                    angular.element($window).off('resize', scope.onResize);
-                    unregisterFn();
+                function onDestroy() {
+                    $log.debug('unregistering listeners of directive bpListener upon destruction');
+                    angular.element($window).off('resize', onResize);
+                    // unregisterFn();
                 }
                 scope.$on('$destroy', onDestroy);
 
-                scope.updateDisplayMode(); // fire it at least once
+                updateDisplayMode(true); // fire it at least once
             }
         };
     }]);

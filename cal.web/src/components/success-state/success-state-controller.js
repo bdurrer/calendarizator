@@ -13,7 +13,7 @@
 
     restart() {
         // clear the selection
-        this.calendarService.setEventList([]);
+        this.calendarService.resetEventList();
         this.$state.go('app.calselect');
     }
 

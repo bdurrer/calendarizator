@@ -1,0 +1,20 @@
+﻿<div class="tmpledit">
+    <div class="modal-header">
+        <h3 class="modal-title">
+            <span>{{'confirm.title' | translate}}</span>
+        </h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <p translate="confirm.text1" translate-values="$ctrl.data"></p>
+                <p translate="confirm.text2"></p>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" type="button" ng-click="$ctrl.cancel()">{{'confirm.abort' | translate}}</button>
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">{{'confirm.ok' | translate}}</button>
+    </div>
+</div>

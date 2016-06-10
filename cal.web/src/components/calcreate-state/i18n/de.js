@@ -37,6 +37,13 @@ function de($translateProvider) {
             },
             timeInfo: 'Der Termin wird über Mitternacht gehen und erst am nächsten Tag enden.',
             saveError: 'Beim speichern ist ein Fehler aufgetreten. Sind deine Daten korrekt?'
+        },
+        confirm: {
+            title: 'Bestätigen',
+            text1: 'Du hast als erstes Datum den {{date}} gewählt und {{selectionModel.length - 1}} Termine hinzugefügt.',
+            text2: 'Hast du alles kontrolliert und willst die Daten nun in deinen Kalender übertragen?',
+            abort: 'Abbrechen',
+            ok: 'Ok'
         }
     });
 }

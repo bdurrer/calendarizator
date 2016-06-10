@@ -3,6 +3,7 @@
 import angular from 'angular';
 import moment from 'moment/moment';
 import tmplEditModalTemplate from './modal/tmpledit-modal.html!text';
+import confirmationModalTemplate from './modal/confirmation-modal.html!text';
 
 import introJs from 'intro.js';
 import 'intro.js/introjs.css!';
@@ -87,21 +88,19 @@ class CalcreateStateController {
             // this.$log.debug('selection has changed and is updated in memory store');
             this.calendarService.setEventList(this.selectionModel);
         }, true);
-        
+
         this.pageSize = 3;
         this.pageClass = 'lg';
 
+        // watch for the window-change event
         $scope.$on('bp-changed', (eventObj, sizing) => {
-            this.$log.info('calcreate bp changed size to ' + sizing.size + ' from ' + sizing.oldSize);
+            this.$log.debug(`bootstrap responsive: window changed size from ${sizing.oldSize} to ${sizing.size}`);
             this.pageSize = sizing.size;
             this.pageClass = sizing.sizeName;
             this.horizontalMode = (this.pageSize >= 2);
             this.updateModel();
         });
         
-        // let the responsive-directive know that we want an immediate update event
-        $scope.$emit('bp-ping');
-
         // if the user has not seen the intro yet, show it!
         const introMode = this.$cookies.get('introMode');
         if (!introMode) {
@@ -185,6 +184,35 @@ class CalcreateStateController {
         });
     }
 
+    createEventsAskForConfirmation() {
+        this.$log.info(`woah, that human actually wants to save his ${this.selectionModel.length} events`);
+        if (!this.selectedCalendar || !this.selectedCalendar.id) {
+            this.$log.info('yo human, why u no selecting a calendar first? Abort, I do.');
+            return;
+        }
+        
+        const modalInstance = this.$uibModal.open({
+            animation: true,
+            template: confirmationModalTemplate,
+            controller: 'ConfirmationModalController',
+            controllerAs: '$ctrl',
+            bindToController: true,
+            /* size: 'lg', */
+            resolve: {
+                data: {
+                    selectionModel: angular.copy(this.selectionModel),
+                    date: moment(this.startDate).format('ddd DD. MMMM YY')
+                }
+            }
+        });
+        modalInstance.result.then((response) => {
+            this.$log.debug(`confirmation modal finished with response ${response}`);
+            this.createEvents();
+        }, () => {
+            this.$log.debug('confirmation modal cancled');
+        });
+    }
+
     /**
      * let's get serious: Inserts the current event model into the user's calendar
      */
@@ -194,6 +222,7 @@ class CalcreateStateController {
             this.$log.info('yo human, why u no selecting a calendar first? Abort, I do.');
             return;
         }
+
         this.insertProgressCount = 0;
         this.insertInProgress = true;
         // const tz = this.selectedCalendar.timeZone;

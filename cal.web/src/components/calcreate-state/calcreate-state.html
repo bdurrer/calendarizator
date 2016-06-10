@@ -1,5 +1,6 @@
 ﻿<div class="calcreate-state">
-	
+	<div bp-listener></div>
+    
     <script type="text/ng-template" id="user.scope.html">
         <span>{{item.scope.value}}</span>
     </script>
@@ -140,7 +141,7 @@
                             <button type="button" class="btn btn-default " ng-click="calcreateState.clearSelectionModel()">{{'buttonClearEvents' | translate}}</button>
                         </span>
                         <span class="pull-right">
-                            <button type="button" class="btn btn-primary" id="saveButton" ng-click="calcreateState.createEvents()">{{'buttonCreateEvents' | translate}}</button>
+                            <button type="button" class="btn btn-primary" id="saveButton" ng-click="calcreateState.createEventsAskForConfirmation()">{{'buttonCreateEvents' | translate}}</button>
                         </span>
                     </div>
                 </div>
