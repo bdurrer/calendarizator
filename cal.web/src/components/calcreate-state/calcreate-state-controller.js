@@ -100,7 +100,7 @@ class CalcreateStateController {
             this.horizontalMode = (this.pageSize >= 2);
             this.updateModel();
         });
-        
+
         // if the user has not seen the intro yet, show it!
         const introMode = this.$cookies.get('introMode');
         if (!introMode) {
@@ -190,7 +190,7 @@ class CalcreateStateController {
             this.$log.info('yo human, why u no selecting a calendar first? Abort, I do.');
             return;
         }
-        
+
         const modalInstance = this.$uibModal.open({
             animation: true,
             template: confirmationModalTemplate,

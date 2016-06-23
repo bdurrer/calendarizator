@@ -1,5 +1,5 @@
 function de($translateProvider) {
-    $translateProvider.useSanitizeValueStrategy('escape');
+    $translateProvider.useSanitizeValueStrategy('escapeParameters');
     $translateProvider.translations('de', {
         trashAlt: 'Zum Löschen den Eintrag auf dem Mülleimer loslassen',
         toggleNav: 'Navigation aus/einblenden',

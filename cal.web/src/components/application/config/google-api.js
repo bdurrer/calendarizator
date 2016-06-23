@@ -5,7 +5,7 @@ function googleApiConfig(GAuth, GApi, $log) {
     const BASE = 'https://calendarizator.appspot.com/_ah/api';
     // const BASE = 'http://localhost:8080/_ah/api';
     // const BASE = '/_ah/api';
-    
+
     GApi.load('calApi', 'v1', BASE);
 
     GApi.load('calendar', 'v3'); // for google api (https://developers.google.com/apis-explorer/)

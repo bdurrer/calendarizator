@@ -40,7 +40,7 @@ function de($translateProvider) {
         },
         confirm: {
             title: 'Bestätigen',
-            text1: 'Du hast als erstes Datum den {{date}} gewählt und {{selectionModel.length - 1}} Termine hinzugefügt.',
+            text1: 'Du hast als erstes Datum den <b>{{date}}</b> gewählt und <b>{{selectionModel.length - 1}}</b> Termine hinzugefügt.',
             text2: 'Hast du alles kontrolliert und willst die Daten nun in deinen Kalender übertragen?',
             abort: 'Abbrechen',
             ok: 'Ok'
